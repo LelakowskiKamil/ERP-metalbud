@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="PI" />
+        <module name="FA" />
+        <module name="MI" />
+        <module name="PIM" />
+        <module name="PE" />
+        <module name="OM" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FA" target="17" />
+      <module name="MI" target="17" />
+      <module name="OM" target="17" />
+      <module name="PE" target="17" />
+      <module name="PI" target="17" />
+      <module name="PIM" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="FA" options="-parameters" />
+      <module name="MI" options="-parameters" />
+      <module name="OM" options="-parameters" />
+      <module name="PE" options="-parameters" />
+      <module name="PI" options="-parameters" />
+      <module name="PIM" options="-parameters" />
+    </option>
+  </component>
+</project>

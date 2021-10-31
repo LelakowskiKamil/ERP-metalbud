@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/PI/pom.xml" />
+        <option value="$PROJECT_DIR$/PIM/pom.xml" />
+        <option value="$PROJECT_DIR$/PE/pom.xml" />
+        <option value="$PROJECT_DIR$/OM/pom.xml" />
+        <option value="$PROJECT_DIR$/MI/pom.xml" />
+        <option value="$PROJECT_DIR$/FA/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK" />
+</project>

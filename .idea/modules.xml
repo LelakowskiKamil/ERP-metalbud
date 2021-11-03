@@ -3,12 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ERP-metalbud.iml" filepath="$PROJECT_DIR$/.idea/ERP-metalbud.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FA/FA.iml" filepath="$PROJECT_DIR$/FA/FA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MI/MI.iml" filepath="$PROJECT_DIR$/MI/MI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/OM/OM.iml" filepath="$PROJECT_DIR$/OM/OM.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PE/PE.iml" filepath="$PROJECT_DIR$/PE/PE.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PI/PI.iml" filepath="$PROJECT_DIR$/PI/PI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PIM/PIM.iml" filepath="$PROJECT_DIR$/PIM/PIM.iml" />
     </modules>
   </component>
 </project>

@@ -9,8 +9,20 @@
         <option value="$PROJECT_DIR$/OM/pom.xml" />
         <option value="$PROJECT_DIR$/MI/pom.xml" />
         <option value="$PROJECT_DIR$/FA/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/common/common-api/pom.xml" />
+        <option value="$PROJECT_DIR$/pi/pi-api/pom.xml" />
+        <option value="$PROJECT_DIR$/pi/pi-client/pom.xml" />
+        <option value="$PROJECT_DIR$/pi/pi-core/pom.xml" />
+        <option value="$PROJECT_DIR$/pim/pim-api/pom.xml" />
+        <option value="$PROJECT_DIR$/pim/pim-client/pom.xml" />
+        <option value="$PROJECT_DIR$/pim/pim-core/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="corretto-11" project-jdk-type="JavaSDK" />
 </project>

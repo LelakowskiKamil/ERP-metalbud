@@ -6,31 +6,44 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PI" />
-        <module name="FA" />
-        <module name="MI" />
-        <module name="PIM" />
-        <module name="PE" />
-        <module name="OM" />
+        <module name="ERP-metalbud" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="FA" target="17" />
-      <module name="MI" target="17" />
-      <module name="OM" target="17" />
-      <module name="PE" target="17" />
-      <module name="PI" target="17" />
-      <module name="PIM" target="17" />
+      <module name="common" target="11" />
+      <module name="common-api" target="17" />
+      <module name="ERP-metalbud" target="11" />
+      <module name="fa" target="11" />
+      <module name="mi" target="11" />
+      <module name="om" target="11" />
+      <module name="pe" target="11" />
+      <module name="pe-api" target="17" />
+      <module name="pi" target="11" />
+      <module name="pi-api" target="17" />
+      <module name="pi-client" target="17" />
+      <module name="pi-core" target="17" />
+      <module name="pim" target="11" />
+      <module name="pim-api" target="17" />
+      <module name="pim-client" target="17" />
+      <module name="pim-core" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="FA" options="-parameters" />
-      <module name="MI" options="-parameters" />
-      <module name="OM" options="-parameters" />
-      <module name="PE" options="-parameters" />
-      <module name="PI" options="-parameters" />
-      <module name="PIM" options="-parameters" />
+      <module name="ERP-metalbud" options="-parameters" />
+      <module name="fa" options="-parameters" />
+      <module name="mi" options="-parameters" />
+      <module name="om" options="-parameters" />
+      <module name="pe" options="-parameters" />
+      <module name="pe-api" options="-parameters" />
+      <module name="pi" options="-parameters" />
+      <module name="pi-api" options="-parameters" />
+      <module name="pi-client" options="-parameters" />
+      <module name="pi-core" options="-parameters" />
+      <module name="pim" options="-parameters" />
+      <module name="pim-api" options="-parameters" />
+      <module name="pim-client" options="-parameters" />
+      <module name="pim-core" options="-parameters" />
     </option>
   </component>
 </project>

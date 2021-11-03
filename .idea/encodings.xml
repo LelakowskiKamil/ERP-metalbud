@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/FA/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/MI/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/OM/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/PE/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/PI/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/PIM/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fa/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mi/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/om/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pe/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pim/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pim/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

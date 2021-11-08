@@ -1,7 +1,10 @@
 package com.lelakowski.ERPMetalbud.pim.web.controller;
 
 import com.lelakowski.ERPMetalbud.pim.service.CustomerService;
+import com.lelakowski.ERPMetalbud.pim.service.CustomerServiceImpl;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Customer;
+import com.lelakowski.ERPMetalbud.pim.web.command.CreateCustomerCommand;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class CustomerController {
 
-    CustomerService customerService;
-
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    private final CustomerService customerService;
 
     @GetMapping("/customers")
     public ResponseEntity<List> getCustomers() {
@@ -29,8 +29,8 @@ public class CustomerController {
     }
 
     @PostMapping(path = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Customer> createCustomer(@RequestBody Customer toCreate) {
-        customerService.saveCustomer(toCreate);
+    ResponseEntity<Customer> createCustomer(@RequestBody CreateCustomerCommand createCustomerCommand) {
+        customerService.saveCustomer(createCustomerCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

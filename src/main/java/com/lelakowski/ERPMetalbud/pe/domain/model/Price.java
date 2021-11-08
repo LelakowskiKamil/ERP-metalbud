@@ -2,12 +2,18 @@ package com.lelakowski.ERPMetalbud.pe.domain.model;
 
 import com.lelakowski.ERPMetalbud.pim.domain.model.Employee;
 import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 @Table(name = "price")
 public class Price {
 
@@ -16,41 +22,14 @@ public class Price {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
     @Column(name = "value")
     private double value;
 
-    @NotNull
-    @Size(min = 1, max = 10)
     @Column(name = "currency")
     private String currency;
 
     @OneToMany(mappedBy = "salaryGross")
+    @ToString.Exclude
     private List<Employee> employees;
 
-    public Price(Long id, double value, String currency, List<Employee> employees) {
-        this.id = id;
-        this.value = value;
-        this.currency = currency;
-        this.employees = employees;
-    }
-
-    public Price() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
 }

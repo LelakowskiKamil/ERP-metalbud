@@ -3,52 +3,40 @@ package com.lelakowski.ERPMetalbud.pim.domain.model;
 
 import com.lelakowski.ERPMetalbud.pim.domain.model.Address;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 @Table(name = "customer")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    private Long id;
 
-    @NotNull
-    @Size(min = 5, max = 50)
     @Column(name = "name")
-    String name;
+    private String name;
 
-    @NotNull
-    @Size(min = 5, max = 50)
     @Column(name = "surname")
-    String surname;
+    private String surname;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
-    Account account;
+    @ToString.Exclude
+    private Account account;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    Address address;
+    @ToString.Exclude
+    private Address address;
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-
-    public Customer(Long id, String name, String surname, Account account, Address address) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.account = account;
-        this.address = address;
-    }
 }

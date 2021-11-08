@@ -1,26 +1,13 @@
 package com.lelakowski.ERPMetalbud.pim.service;
 
 import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
-import com.lelakowski.ERPMetalbud.pim.repository.AccountRepository;
-import org.springframework.stereotype.Service;
+import com.lelakowski.ERPMetalbud.pim.web.command.CreateAccountCommand;
 
 import java.util.List;
 
-@Service
-public class AccountService {
+public interface AccountService {
 
-    AccountRepository accountRepository;
+     Account saveAccount(CreateAccountCommand createAccountCommand);
 
-    public AccountService(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
-
-    public Account saveAccount(Account account) {
-        return accountRepository.save(account);
-    }
-
-    public List<Account> getAccounts() {
-     return accountRepository.findAll();
-    }
-
+     List<Account> getAccounts();
 }

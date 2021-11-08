@@ -2,6 +2,9 @@ package com.lelakowski.ERPMetalbud.pim.web.controller;
 
 import com.lelakowski.ERPMetalbud.pim.domain.model.Address;
 import com.lelakowski.ERPMetalbud.pim.service.AddressService;
+import com.lelakowski.ERPMetalbud.pim.service.AddressServiceImpl;
+import com.lelakowski.ERPMetalbud.pim.web.command.CreateAddressCommand;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class AddressController {
 
-    AddressService addressService;
-
-    public AddressController(AddressService addressService) {
-        this.addressService = addressService;
-    }
-
+    private final AddressService addressService;
 
     @GetMapping("/addresses")
     public ResponseEntity<List> getAddresses() {
@@ -31,8 +30,8 @@ public class AddressController {
 
 
     @PostMapping(path = "/addresses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Address> createAddress(@RequestBody Address toCreate) {
-        addressService.saveAddress(toCreate);
+    ResponseEntity<Address> createAddress(@RequestBody CreateAddressCommand createAddressCommand) {
+        addressService.saveAddress(createAddressCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

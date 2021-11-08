@@ -2,6 +2,9 @@ package com.lelakowski.ERPMetalbud.pim.web.controller;
 
 import com.lelakowski.ERPMetalbud.pim.domain.model.Privileges;
 import com.lelakowski.ERPMetalbud.pim.service.PrivilegesService;
+import com.lelakowski.ERPMetalbud.pim.service.PrivilegesServiceImpl;
+import com.lelakowski.ERPMetalbud.pim.web.command.CreatePrivilegesCommand;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class PrivilegesController {
 
-    PrivilegesService privilegesService;
-
-    public PrivilegesController(PrivilegesService privilegesService) {
-        this.privilegesService = privilegesService;
-    }
+    private final PrivilegesService privilegesService;
 
     @GetMapping("/privileges")
     public ResponseEntity<List> getPrivileges() {
@@ -29,9 +29,8 @@ public class PrivilegesController {
     }
 
     @PostMapping(path = "/privileges", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity createPrivileges(@RequestBody Privileges toCreate) {
-        System.out.println(toCreate.toString());
-        privilegesService.savePrivileges(toCreate);
+    ResponseEntity createPrivileges(@RequestBody CreatePrivilegesCommand createPrivilegesCommand) {
+        privilegesService.savePrivileges(createPrivilegesCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

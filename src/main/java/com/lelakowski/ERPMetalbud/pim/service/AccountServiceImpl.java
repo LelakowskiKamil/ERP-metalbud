@@ -14,10 +14,10 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
+    private final AccountConverter accountConverter;
 
     public Account saveAccount(CreateAccountCommand createAccountCommand) {
-
-        Account accountToSave = new AccountConverter().from(createAccountCommand);
+        Account accountToSave = accountConverter.from(createAccountCommand);
         return accountRepository.save(accountToSave);
     }
 

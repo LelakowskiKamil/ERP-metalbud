@@ -25,7 +25,7 @@ public class Profession {
     @Column(name = "designation")
     private String designation;
 
-    @OneToMany(mappedBy = "profession")
+    @OneToMany(mappedBy = "profession", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Employee> employees;
 

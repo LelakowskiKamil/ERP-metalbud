@@ -1,7 +1,6 @@
 package com.lelakowski.ERPMetalbud.pim.web.controller;
 
 import com.lelakowski.ERPMetalbud.pim.service.AccountService;
-import com.lelakowski.ERPMetalbud.pim.service.AccountServiceImpl;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateAccountCommand;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class AccountController {
 
 
     @PostMapping(path = "/accounts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Account> createCustomer(@RequestBody CreateAccountCommand createAccountCommand) {
+    ResponseEntity<Account> createAccount(@RequestBody CreateAccountCommand createAccountCommand) {
         accountService.saveAccount(createAccountCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -27,7 +27,7 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "profession_id",referencedColumnName = "id")
     @ToString.Exclude
     private Profession profession;
@@ -35,7 +35,7 @@ public class Employee {
     @Column(name = "employment_date")
     private  Date employmentDate;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "salary_gross_id",referencedColumnName = "id")
     @ToString.Exclude
     private Price salaryGross;

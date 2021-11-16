@@ -1,5 +1,7 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -13,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 @Table(name = "account")
 public class Account {
 
@@ -31,13 +32,12 @@ public class Account {
     @Column(name = "email", unique = true)
     private String email;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "privileges_id", referencedColumnName = "id")
-    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "privileges_id")
     private Privileges privileges;
 
-    @OneToMany(mappedBy = "account")
-    @ToString.Exclude
+    @JsonBackReference
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Customer> customers;
 
 

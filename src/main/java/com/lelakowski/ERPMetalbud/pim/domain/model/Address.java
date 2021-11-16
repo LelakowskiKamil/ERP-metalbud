@@ -33,7 +33,7 @@ public class Address {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Customer> customers;
 

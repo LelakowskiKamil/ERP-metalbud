@@ -22,8 +22,8 @@ public class CreateCustomerCommand {
     @Size(min = 5, max = 50)
     String surname;
     @NotNull
-    Account account;
+    Long accountId;
     @NotNull
-    Address address;
+    Long addressId;
 
 }

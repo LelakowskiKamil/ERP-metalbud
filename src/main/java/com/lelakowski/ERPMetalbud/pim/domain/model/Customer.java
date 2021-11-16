@@ -29,14 +29,12 @@ public class Customer {
     @Column(name = "surname")
     private String surname;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
-    @ToString.Exclude
     private Account account;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    @ToString.Exclude
     private Address address;
 
 }

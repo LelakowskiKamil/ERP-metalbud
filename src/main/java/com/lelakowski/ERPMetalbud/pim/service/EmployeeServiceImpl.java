@@ -14,9 +14,10 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeConverter employeeConverter;
 
     public Employee saveEmployee(CreateEmployeeCommand createEmployeeCommand) {
-        Employee employeeToSave = new EmployeeConverter().from(createEmployeeCommand);
+        Employee employeeToSave = employeeConverter.from(createEmployeeCommand);
         return employeeRepository.save(employeeToSave);
     }
 

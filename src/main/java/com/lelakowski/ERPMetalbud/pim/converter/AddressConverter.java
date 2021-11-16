@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class AddressConverter {
 
     public Address from(CreateAddressCommand createAddressCommand) {

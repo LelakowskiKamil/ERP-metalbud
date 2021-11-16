@@ -1,8 +1,8 @@
 package com.lelakowski.ERPMetalbud.pim.converter;
 
-import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
+import com.lelakowski.ERPMetalbud.pe.repository.PriceRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Employee;
-import com.lelakowski.ERPMetalbud.pim.web.command.CreateAccountCommand;
+import com.lelakowski.ERPMetalbud.pim.domain.repository.ProfessionRepository;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateEmployeeCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,13 +11,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EmployeeConverter {
 
+    private final PriceRepository priceRepository;
+    private final ProfessionRepository professionRepository;
+
     public Employee from(CreateEmployeeCommand createEmployeeCommand) {
         if (createEmployeeCommand == null) throw new IllegalArgumentException();
         return Employee.builder()
                 .email(createEmployeeCommand.getEmail())
-                .profession(createEmployeeCommand.getProfession())
+                .profession(professionRepository.getOne(createEmployeeCommand.getProfessionId()))
                 .employmentDate(createEmployeeCommand.getEmploymentDate())
-                .salaryGross(createEmployeeCommand.getSalaryGross())
+                .salaryGross(priceRepository.getOne(createEmployeeCommand.getPriceId()))
                 .build();
     }
 

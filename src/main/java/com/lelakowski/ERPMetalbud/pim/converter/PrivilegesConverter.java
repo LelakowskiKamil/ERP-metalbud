@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@RequiredArgsConstructor
 public class PrivilegesConverter {
 
     public Privileges from(CreatePrivilegesCommand createPrivilegesCommand) {

@@ -15,9 +15,10 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService{
 
     private final CustomerRepository customerRepository;
+    private final CustomerConverter customerConverter;
 
     public Customer saveCustomer(CreateCustomerCommand createCustomerCommand) {
-        Customer customerToSave = new CustomerConverter().from(createCustomerCommand);
+        Customer customerToSave = customerConverter.from(createCustomerCommand);
         return customerRepository.save(customerToSave);
     }
 

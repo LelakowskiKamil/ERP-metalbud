@@ -1,5 +1,6 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -11,7 +12,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "privileges")
 @Getter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -37,8 +37,8 @@ public class Privileges {
     @Column(name = "can_remove")
     private Boolean canRemove;
 
-    @OneToMany(mappedBy = "privileges")
-    @ToString.Exclude
+    @JsonBackReference
+    @OneToMany(mappedBy = "privileges", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Account> accounts;
 
 

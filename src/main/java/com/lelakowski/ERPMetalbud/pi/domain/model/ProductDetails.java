@@ -1,7 +1,7 @@
 package com.lelakowski.ERPMetalbud.pi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.lelakowski.ERPMetalbud.common.domain.color.domain.Color;
+import com.lelakowski.ERPMetalbud.common.domain.color.domain.model.Color;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,9 +25,9 @@ public class ProductDetails {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "color_id")
     Color color;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "genus_id")
-    Genus genus;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_specification_id")
+    ProductSpecification productSpecification;
 
     @JsonBackReference
     @OneToMany(mappedBy = "productDetails", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

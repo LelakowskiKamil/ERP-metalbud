@@ -1,5 +1,6 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class Address {
     @Column(name = "country")
     private String country;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Customer> customers;

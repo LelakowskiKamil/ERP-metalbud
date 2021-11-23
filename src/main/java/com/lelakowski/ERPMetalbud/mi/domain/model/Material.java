@@ -1,11 +1,13 @@
 package com.lelakowski.ERPMetalbud.mi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,5 +22,8 @@ public class Material {
     @Column(name = "id")
     private Long id;
     private String caption;
+    @JsonBackReference
+    @OneToMany(mappedBy = "material", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BillOfMaterialItem> billOfMaterialItems;
 
 }

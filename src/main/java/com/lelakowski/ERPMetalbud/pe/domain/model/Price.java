@@ -30,6 +30,7 @@ public class Price {
     @Column(name = "currency")
     private String currency;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "salaryGross", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Employee> employees;

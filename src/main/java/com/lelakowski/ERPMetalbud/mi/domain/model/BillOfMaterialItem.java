@@ -27,7 +27,8 @@ public class BillOfMaterialItem {
     @JoinColumn(name = "material_id")
     private Material material;
     private Double quantity;
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Product> products;
 }

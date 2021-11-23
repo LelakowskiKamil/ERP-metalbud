@@ -1,6 +1,6 @@
 package com.lelakowski.ERPMetalbud.pim.converter;
 
-import com.lelakowski.ERPMetalbud.pe.repository.PriceRepository;
+import com.lelakowski.ERPMetalbud.pe.domain.repository.PriceRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Employee;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.ProfessionRepository;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateEmployeeCommand;

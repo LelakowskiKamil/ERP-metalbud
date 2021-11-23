@@ -14,3 +14,22 @@ insert into ACCOUNT(id, username, password, email, privileges_id) values (3, 'ac
 insert into ACCOUNT(id, username, password, email, privileges_id) values (4, 'account2', 'account2!', 'account2@gmail.com', 3);
 insert into CUSTOMER(id, name, surname, account_id, address_id) values (1, 'Tomek', 'Kokoszka', 3, 1);
 insert into CUSTOMER(id, name, surname, account_id, address_id) values (2, 'Adam', 'Ewak', 4, 2);
+
+insert into MATERIAL(id, caption) values (1, "material1");
+insert into MATERIAL(id, caption) values (2, "material2");
+insert into MATERIAL(id, caption) values (3, "material3");
+insert into MATERIAL(id, caption) values (4, "material4");
+
+insert into VENDOR(id, caption) values (1, "vendor1");
+insert into VENDOR(id, caption) values (2, "vendor2");
+
+insert into BRAND(id, caption) values (1, "brand1");
+insert into BRAND(id, caption) values (2, "brand2");
+
+insert into COLOR(id, oem, caption) values (1, "czerwony", "red");
+
+insert into DIMENSION(id, value, unit) values (1, 1.3 , "dimension");
+
+insert into DIMENSIONS(id, caption, height_id, width_id, length_id) values (1, "dimensions", 1, 1, 1);
+
+insert into PRODUCTSPECIFICATION(id, caption, dimensions_id) values (1, "prodSpec", 1)

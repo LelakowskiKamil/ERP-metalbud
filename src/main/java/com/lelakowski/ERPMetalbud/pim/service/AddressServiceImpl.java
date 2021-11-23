@@ -16,10 +16,9 @@ public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
 
-    public Address saveAddress(CreateAddressCommand createAddressCommand) {
+    public void saveAddress(CreateAddressCommand createAddressCommand) {
         Address addressToSave = new AddressConverter().from(createAddressCommand);
-
-        return addressRepository.save(addressToSave);
+        addressRepository.save(addressToSave);
     }
 
     public List<Address> getAddresses() {

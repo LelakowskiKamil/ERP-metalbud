@@ -1,15 +1,9 @@
 package com.lelakowski.ERPMetalbud.pi.service;
 
-import com.lelakowski.ERPMetalbud.pi.conventer.VendorConverter;
+import com.lelakowski.ERPMetalbud.pi.builder.VendorBuilder;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Vendor;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.VendorRepository;
-import com.lelakowski.ERPMetalbud.pi.service.VendorService;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateVendorCommand;
-import com.lelakowski.ERPMetalbud.pim.converter.AddressConverter;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Address;
-import com.lelakowski.ERPMetalbud.pim.domain.repository.AddressRepository;
-import com.lelakowski.ERPMetalbud.pim.service.AddressService;
-import com.lelakowski.ERPMetalbud.pim.web.command.CreateAddressCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +14,13 @@ import java.util.List;
 public class VendorServiceImpl implements VendorService {
 
     private final VendorRepository vendorRepository;
-    private final VendorConverter vendorConverter;
+    private final VendorBuilder vendorBuilder;
 
     @Override
-    public void saveVendor(CreateVendorCommand createVendorCommand) {
-        Vendor vendorToSave = vendorConverter.from(createVendorCommand);
-        vendorRepository.save(vendorToSave);
+    public Long saveVendor(CreateVendorCommand createVendorCommand) {
+        Vendor vendorToSave = vendorBuilder.from(createVendorCommand.getCaption());
+        Vendor vendor = vendorRepository.save(vendorToSave);
+        return vendor.getId();
     }
 
     @Override

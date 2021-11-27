@@ -1,12 +1,16 @@
 package com.lelakowski.ERPMetalbud.pim.service;
 
-import com.lelakowski.ERPMetalbud.pim.converter.CustomerConverter;
+import com.lelakowski.ERPMetalbud.pim.builder.CustomerBuilder;
+import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
+import com.lelakowski.ERPMetalbud.pim.domain.model.Address;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Customer;
+import com.lelakowski.ERPMetalbud.pim.domain.repository.AccountRepository;
+import com.lelakowski.ERPMetalbud.pim.domain.repository.AddressRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.CustomerRepository;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateCustomerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.lelakowski.ERPMetalbud.pim.domain.repository.CustomerRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,15 +19,37 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService{
 
     private final CustomerRepository customerRepository;
-    private final CustomerConverter customerConverter;
+    private final CustomerBuilder customerBuilder;
+    private final AccountRepository accountRepository;
+    private final AddressRepository addressRepository;
 
-    public Customer saveCustomer(CreateCustomerCommand createCustomerCommand) {
-        Customer customerToSave = customerConverter.from(createCustomerCommand);
-        return customerRepository.save(customerToSave);
+    @Transactional
+    @Override
+    public Long saveCustomer(CreateCustomerCommand createCustomerCommand) {
+
+        Account account = accountRepository.getOne(createCustomerCommand.getAccountId());
+        Address address = addressRepository.getOne(createCustomerCommand.getAddressId());
+
+        Customer customerToSave = customerBuilder.from(
+                createCustomerCommand.getName(),
+                createCustomerCommand.getSurname(),
+                account,
+                address
+        );
+
+        Customer customer = customerRepository.save(customerToSave);
+        saveReferences(customer,account,address);
+
+        return customer.getId();
     }
 
     public List<Customer> getCustomers() {
      return customerRepository.findAll();
+    }
+
+    private void saveReferences(Customer customerReference, Account account, Address address){
+        account.addToCustomerList(customerReference);
+        address.addToCustomerList(customerReference);
     }
 
 }

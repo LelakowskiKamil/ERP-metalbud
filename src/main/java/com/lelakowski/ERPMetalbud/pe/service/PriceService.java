@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PriceService {
 
-     void savePrice(double priceValue, String priceCurrency);
+     Long savePrice(double priceValue, String priceCurrency);
 
      List<Price> getPrices();
 }

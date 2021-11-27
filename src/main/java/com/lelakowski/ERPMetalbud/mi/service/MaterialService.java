@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MaterialService {
 
-    Material saveMaterial(CreateMaterialCommand createMaterialCommand);
+    Long saveMaterial(CreateMaterialCommand createMaterialCommand);
 
     List<Material> getMaterials();
 

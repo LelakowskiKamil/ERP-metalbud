@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,7 +23,7 @@ public class ProductOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String orderDate;
+    private Date orderDate;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -30,5 +32,7 @@ public class ProductOrder {
     @OneToMany(mappedBy = "productOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductOrderItem> productOrderItems;
 
-
+    public final void addToProductOrderItemList(ProductOrderItem productOrderItem){
+        productOrderItems.add(productOrderItem);
+    }
 }

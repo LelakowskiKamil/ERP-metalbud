@@ -1,30 +1,58 @@
 package com.lelakowski.ERPMetalbud.om.service;
 
-import com.lelakowski.ERPMetalbud.om.conventer.OrderConverter;
+import com.lelakowski.ERPMetalbud.om.builder.ProductOrderBuilder;
 import com.lelakowski.ERPMetalbud.om.domain.model.ProductOrder;
 import com.lelakowski.ERPMetalbud.om.domain.model.ProductOrderItem;
+import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderItemRepository;
 import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderRepository;
 import com.lelakowski.ERPMetalbud.om.validator.CreateOrderValidator;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderCommand;
+import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
+import com.lelakowski.ERPMetalbud.pim.domain.model.Customer;
+import com.lelakowski.ERPMetalbud.pim.domain.model.Privileges;
+import com.lelakowski.ERPMetalbud.pim.domain.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderConverter orderConverter;
+    private final ProductOrderBuilder productOrderBuilder;
     private final CreateOrderValidator createOrderValidator;
+    private final CustomerRepository customerRepository;
+    private final OrderItemService orderItemService;
+    private final OrderItemRepository orderItemRepository;
 
+    @Transactional
     @Override
-    public ProductOrder saveOrder(CreateOrderCommand createOrderCommand) {
+    public Long saveOrder(CreateOrderCommand createOrderCommand) {
         createOrderValidator.validate(createOrderCommand);
 
-        ProductOrder productOrderToSave = orderConverter.from(createOrderCommand);
-        return orderRepository.save(productOrderToSave);
+        List<Long> productOrderItemIds = createOrderCommand.getOrderItems().stream()
+                .map(orderItemService::saveOrderItem)
+                .collect(Collectors.toList());
+        List<ProductOrderItem> productOrderItems = orderItemRepository.findAllById(productOrderItemIds);
+
+        Customer customer = customerRepository.getOne(createOrderCommand.getCustomerId());
+        Privileges customerPrivileges = getPrivilegesForCustomer(customer);
+
+        if (!customerPrivileges.getCanCreate()) throw new IllegalArgumentException();
+
+        ProductOrder productOrderToSave = productOrderBuilder.from(
+                createOrderCommand.getOrderDate(),
+                customer,
+                productOrderItems
+        );
+        ProductOrder productOrder = orderRepository.save(productOrderToSave);
+        saveReferences(productOrder, customer, productOrderItems);
+
+        return productOrder.getId();
     }
 
     @Override
@@ -40,5 +68,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<ProductOrderItem> getOrderItems(Long orderId) {
         return orderRepository.getOne(orderId).getProductOrderItems();
+    }
+
+    private Privileges getPrivilegesForCustomer(Customer customer) {
+        Account customerAccount = customer.getAccount();
+        return customerAccount.getPrivileges();
+    }
+
+    private void saveReferences(ProductOrder productOrder, Customer customer, List<ProductOrderItem> productOrderItems){
+        customer.addToProductOrderList(productOrder);
+        productOrderItems.forEach(orderItem -> orderItem.setProductOrder(productOrder));
     }
 }

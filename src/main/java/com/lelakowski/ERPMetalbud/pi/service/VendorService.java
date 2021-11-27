@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface VendorService {
 
-     void saveVendor(CreateVendorCommand createVendorCommand);
+     Long saveVendor(CreateVendorCommand createVendorCommand);
 
      List<Vendor> getVendors();
 }

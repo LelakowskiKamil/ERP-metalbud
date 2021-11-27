@@ -1,7 +1,7 @@
 package com.lelakowski.ERPMetalbud.pi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.lelakowski.ERPMetalbud.common.domain.dimension.domain.model.Dimensions;
+import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimensions;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,4 +29,9 @@ public class ProductSpecification {
     @JsonBackReference
     @OneToMany(mappedBy = "productSpecification", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<ProductDetails> productDetails;
+
+    public final void addToProductDetailsList(ProductDetails productDetailReference){
+        productDetails.add(productDetailReference);
+    }
+
 }

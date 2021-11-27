@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BrandService {
 
-     void saveBrand(CreateBrandCommand createBrandCommand);
+     Long saveBrand(CreateBrandCommand createBrandCommand);
 
      List<Brand> getBrands();
 }

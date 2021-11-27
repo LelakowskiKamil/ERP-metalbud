@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,5 +39,9 @@ public class Address {
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Customer> customers;
+
+    public final void addToCustomerList(Customer customerReference){
+        customers.add(customerReference);
+    }
 
 }

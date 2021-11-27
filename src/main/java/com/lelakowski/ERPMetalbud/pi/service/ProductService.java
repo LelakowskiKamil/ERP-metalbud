@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProductService {
 
-     void saveProduct(CreateProductCommand createProductCommand);
+     Long saveProduct(CreateProductCommand createProductCommand);
 
      List<Product> getProducts();
 }

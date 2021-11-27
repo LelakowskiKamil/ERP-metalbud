@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,5 +45,9 @@ public class Product {
     @JsonBackReference
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductOrderItem> productOrderItems;
+
+    public final void addToProductOrderItemList(ProductOrderItem productOrderItem){
+        productOrderItems.add(productOrderItem);
+    }
 
 }

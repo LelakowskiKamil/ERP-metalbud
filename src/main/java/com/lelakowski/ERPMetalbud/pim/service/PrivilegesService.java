@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PrivilegesService {
 
-    Privileges savePrivileges(CreatePrivilegesCommand privilegesCommand);
+    Long savePrivileges(CreatePrivilegesCommand privilegesCommand);
 
     List<Privileges> getPrivileges();
 }

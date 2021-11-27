@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    ProductOrder saveOrder(CreateOrderCommand createOrderCommand);
+    Long saveOrder(CreateOrderCommand createOrderCommand);
 
     List<ProductOrder> getOrders();
 

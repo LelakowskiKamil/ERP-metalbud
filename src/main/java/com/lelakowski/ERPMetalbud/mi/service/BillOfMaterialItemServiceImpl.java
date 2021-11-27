@@ -1,15 +1,14 @@
 package com.lelakowski.ERPMetalbud.mi.service;
 
-import com.lelakowski.ERPMetalbud.mi.converter.BillOfMaterialItemConverter;
-import com.lelakowski.ERPMetalbud.mi.converter.BillOfMaterialsConverter;
+import com.lelakowski.ERPMetalbud.mi.builder.BillOfMaterialItemBuilder;
 import com.lelakowski.ERPMetalbud.mi.domain.model.BillOfMaterialItem;
-import com.lelakowski.ERPMetalbud.mi.domain.model.BillOfMaterials;
+import com.lelakowski.ERPMetalbud.mi.domain.model.Material;
 import com.lelakowski.ERPMetalbud.mi.domain.repository.BillOfMaterialItemRepository;
-import com.lelakowski.ERPMetalbud.mi.domain.repository.BillOfMaterialsRepository;
+import com.lelakowski.ERPMetalbud.mi.domain.repository.MaterialRepository;
 import com.lelakowski.ERPMetalbud.mi.web.command.CreateBillOfMaterialItemCommand;
-import com.lelakowski.ERPMetalbud.mi.web.command.CreateBillOfMaterialsCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,18 +16,33 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BillOfMaterialItemServiceImpl implements BillOfMaterialItemService {
 
-    private final BillOfMaterialItemConverter billOfMaterialItemConverter;
+    private final BillOfMaterialItemBuilder billOfMaterialItemBuilder;
     private final BillOfMaterialItemRepository billOfMaterialItemRepository;
+    private final MaterialRepository materialRepository;
 
-
+    @Transactional
     @Override
-    public BillOfMaterialItem saveBillOfMaterialItem(CreateBillOfMaterialItemCommand createBillOfMaterialItemCommand) {
-        BillOfMaterialItem billOfMaterialItemToSave = billOfMaterialItemConverter.from(createBillOfMaterialItemCommand);
-        return billOfMaterialItemRepository.save(billOfMaterialItemToSave);
+    public Long saveBillOfMaterialItem(CreateBillOfMaterialItemCommand createBillOfMaterialItemCommand) {
+        //TODO validation
+        Material material = materialRepository.getOne(createBillOfMaterialItemCommand.getMaterialId());
+
+        BillOfMaterialItem billOfMaterialItemToSave = billOfMaterialItemBuilder.from(
+                material,
+                createBillOfMaterialItemCommand.getQuantity()
+        );
+        BillOfMaterialItem billOfMaterialItem = billOfMaterialItemRepository.save(billOfMaterialItemToSave);
+        saveReferences(billOfMaterialItem, material);
+
+        return billOfMaterialItem.getId();
     }
 
     @Override
     public List<BillOfMaterialItem> getBillOfMaterialItems() {
         return billOfMaterialItemRepository.findAll();
     }
+
+    private void saveReferences(BillOfMaterialItem billOfMaterialItem, Material material) {
+        material.addToBillOfMaterialItemList(billOfMaterialItem);
+    }
+
 }

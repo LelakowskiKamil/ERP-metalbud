@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,5 +31,10 @@ public class Profession {
     @OneToMany(mappedBy = "profession", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Employee> employees;
+
+    public final void addToEmployeeList(Employee employeeReference){
+        employees.add(employeeReference);
+    }
+
 
 }

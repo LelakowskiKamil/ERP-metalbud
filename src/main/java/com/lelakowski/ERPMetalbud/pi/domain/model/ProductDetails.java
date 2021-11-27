@@ -1,7 +1,7 @@
 package com.lelakowski.ERPMetalbud.pi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.lelakowski.ERPMetalbud.common.domain.color.domain.model.Color;
+import com.lelakowski.ERPMetalbud.common.color.domain.model.Color;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,4 +33,7 @@ public class ProductDetails {
     @OneToMany(mappedBy = "productDetails", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
 
+    public final void addToProductList(Product productReference){
+        products.add(productReference);
+    }
 }

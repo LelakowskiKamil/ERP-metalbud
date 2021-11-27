@@ -1,6 +1,6 @@
 package com.lelakowski.ERPMetalbud.mi.service;
 
-import com.lelakowski.ERPMetalbud.mi.converter.MaterialConverter;
+import com.lelakowski.ERPMetalbud.mi.builder.MaterialBuilder;
 import com.lelakowski.ERPMetalbud.mi.domain.model.Material;
 import com.lelakowski.ERPMetalbud.mi.domain.repository.MaterialRepository;
 import com.lelakowski.ERPMetalbud.mi.web.command.CreateMaterialCommand;
@@ -13,13 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MaterialServiceImpl implements MaterialService{
 
-    private final MaterialConverter materialConverter;
+    private final MaterialBuilder materialBuilder;
     private final MaterialRepository materialRepository;
 
     @Override
-    public Material saveMaterial(CreateMaterialCommand createMaterialCommand) {
-        Material materialToSave = materialConverter.from(createMaterialCommand);
-        return materialRepository.save(materialToSave);
+    public Long saveMaterial(CreateMaterialCommand createMaterialCommand) {
+        Material materialToSave = materialBuilder.from(createMaterialCommand.getCaption());
+        Material material = materialRepository.save(materialToSave);
+        return material.getId();
     }
 
     public List<Material> getMaterials(){

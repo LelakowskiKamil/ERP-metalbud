@@ -5,6 +5,6 @@ import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
 
 public interface OrderItemService {
 
-    ProductOrderItem saveOrderItem(CreateOrderItemCommand createOrderItemCommand);
+    Long saveOrderItem(CreateOrderItemCommand createOrderItemCommand);
 
 }

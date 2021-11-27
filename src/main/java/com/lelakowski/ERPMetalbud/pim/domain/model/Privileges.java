@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,7 +42,8 @@ public class Privileges {
     @OneToMany(mappedBy = "privileges", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Account> accounts;
 
-
-
+    public final void addToAccountList(Account accountReference){
+        accounts.add(accountReference);
+    }
 
 }

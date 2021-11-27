@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,5 +39,12 @@ public class Price {
     @JsonBackReference
     @OneToMany(mappedBy = "price", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
+
+    public final void addToProductList(Product product){
+        products.add(product);
+    }
+    public final void addToEmployeeList(Employee employeeReference){
+        employees.add(employeeReference);
+    }
 
 }

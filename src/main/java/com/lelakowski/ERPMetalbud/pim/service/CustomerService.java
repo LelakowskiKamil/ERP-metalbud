@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CustomerService {
 
-     Long saveCustomer(CreateCustomerCommand createCustomerCommand);
+    Long saveCustomer(CreateCustomerCommand createCustomerCommand);
 
-     List<Customer> getCustomers();
+    List<Customer> getCustomers();
 }

@@ -1,18 +1,13 @@
 package com.lelakowski.ERPMetalbud.pim.web.command;
 
-import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Privileges;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Profession;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data

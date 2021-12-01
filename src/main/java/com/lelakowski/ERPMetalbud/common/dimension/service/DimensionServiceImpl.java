@@ -17,7 +17,7 @@ public class DimensionServiceImpl implements DimensionService {
 
     @Override
     public Dimension saveDimension(Double value, String unit) {
-        Dimension dimensionToSave = dimensionBuilder.from(value,unit);
+        Dimension dimensionToSave = dimensionBuilder.from(value, unit);
         return dimensionRepository.save(dimensionToSave);
     }
 

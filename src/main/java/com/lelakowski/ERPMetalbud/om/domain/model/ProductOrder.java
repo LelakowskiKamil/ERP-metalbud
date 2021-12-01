@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class ProductOrder {
     @OneToMany(mappedBy = "productOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductOrderItem> productOrderItems;
 
-    public final void addToProductOrderItemList(ProductOrderItem productOrderItem){
+    public final void addToProductOrderItemList(ProductOrderItem productOrderItem) {
         productOrderItems.add(productOrderItem);
     }
 }

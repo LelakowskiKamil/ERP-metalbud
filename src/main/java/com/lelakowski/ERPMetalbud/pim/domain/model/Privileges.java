@@ -1,14 +1,13 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "privileges")
@@ -42,7 +41,7 @@ public class Privileges {
     @OneToMany(mappedBy = "privileges", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Account> accounts;
 
-    public final void addToAccountList(Account accountReference){
+    public final void addToAccountList(Account accountReference) {
         accounts.add(accountReference);
     }
 

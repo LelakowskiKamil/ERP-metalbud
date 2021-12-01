@@ -33,7 +33,7 @@ public class ProductDetails {
     @OneToMany(mappedBy = "productDetails", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
 
-    public final void addToProductList(Product productReference){
+    public final void addToProductList(Product productReference) {
         products.add(productReference);
     }
 }

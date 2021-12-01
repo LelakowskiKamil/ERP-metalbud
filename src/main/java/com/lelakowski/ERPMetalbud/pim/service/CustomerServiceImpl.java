@@ -7,6 +7,7 @@ import com.lelakowski.ERPMetalbud.pim.domain.model.Customer;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.AccountRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.AddressRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.CustomerRepository;
+import com.lelakowski.ERPMetalbud.pim.validation.CreateCustomerValidator;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateCustomerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,16 +17,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerBuilder customerBuilder;
     private final AccountRepository accountRepository;
     private final AddressRepository addressRepository;
+    private final CreateCustomerValidator createCustomerValidator;
 
     @Transactional
     @Override
     public Long saveCustomer(CreateCustomerCommand createCustomerCommand) {
+        createCustomerValidator.validate(createCustomerCommand);
 
         Account account = accountRepository.getOne(createCustomerCommand.getAccountId());
         Address address = addressRepository.getOne(createCustomerCommand.getAddressId());
@@ -38,16 +41,16 @@ public class CustomerServiceImpl implements CustomerService{
         );
 
         Customer customer = customerRepository.save(customerToSave);
-        saveReferences(customer,account,address);
+        saveReferences(customer, account, address);
 
         return customer.getId();
     }
 
     public List<Customer> getCustomers() {
-     return customerRepository.findAll();
+        return customerRepository.findAll();
     }
 
-    private void saveReferences(Customer customerReference, Account account, Address address){
+    private void saveReferences(Customer customerReference, Account account, Address address) {
         account.addToCustomerList(customerReference);
         address.addToCustomerList(customerReference);
     }

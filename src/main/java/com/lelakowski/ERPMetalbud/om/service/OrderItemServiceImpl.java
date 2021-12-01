@@ -3,7 +3,7 @@ package com.lelakowski.ERPMetalbud.om.service;
 import com.lelakowski.ERPMetalbud.om.builder.ProductOrderItemBuilder;
 import com.lelakowski.ERPMetalbud.om.domain.model.ProductOrderItem;
 import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderItemRepository;
-import com.lelakowski.ERPMetalbud.om.validator.CreateOrderItemValidator;
+import com.lelakowski.ERPMetalbud.om.validation.CreateOrderItemValidator;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Product;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductRepository;
@@ -38,7 +38,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         return orderItem.getId();
     }
 
-    private void saveReferences(ProductOrderItem orderItem, Product product){
+    private void saveReferences(ProductOrderItem orderItem, Product product) {
         product.addToProductOrderItemList(orderItem);
     }
 }

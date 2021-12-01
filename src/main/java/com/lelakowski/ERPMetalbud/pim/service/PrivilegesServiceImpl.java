@@ -32,7 +32,7 @@ public class PrivilegesServiceImpl implements PrivilegesService {
     }
 
     public List<Privileges> getPrivileges() {
-     return privilegesRepository.findAll();
+        return privilegesRepository.findAll();
     }
 
 

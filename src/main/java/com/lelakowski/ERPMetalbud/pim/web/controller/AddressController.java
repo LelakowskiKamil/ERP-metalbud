@@ -2,7 +2,6 @@ package com.lelakowski.ERPMetalbud.pim.web.controller;
 
 import com.lelakowski.ERPMetalbud.pim.domain.model.Address;
 import com.lelakowski.ERPMetalbud.pim.service.AddressService;
-import com.lelakowski.ERPMetalbud.pim.service.AddressServiceImpl;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateAddressCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

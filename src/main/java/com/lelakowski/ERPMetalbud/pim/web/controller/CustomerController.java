@@ -1,8 +1,7 @@
 package com.lelakowski.ERPMetalbud.pim.web.controller;
 
-import com.lelakowski.ERPMetalbud.pim.service.CustomerService;
-import com.lelakowski.ERPMetalbud.pim.service.CustomerServiceImpl;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Customer;
+import com.lelakowski.ERPMetalbud.pim.service.CustomerService;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateCustomerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

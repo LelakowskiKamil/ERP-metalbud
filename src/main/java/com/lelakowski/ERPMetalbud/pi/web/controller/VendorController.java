@@ -1,12 +1,8 @@
 package com.lelakowski.ERPMetalbud.pi.web.controller;
 
-import com.lelakowski.ERPMetalbud.pi.domain.model.Brand;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Vendor;
 import com.lelakowski.ERPMetalbud.pi.service.VendorService;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateVendorCommand;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Address;
-import com.lelakowski.ERPMetalbud.pim.service.AddressService;
-import com.lelakowski.ERPMetalbud.pim.web.command.CreateAddressCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

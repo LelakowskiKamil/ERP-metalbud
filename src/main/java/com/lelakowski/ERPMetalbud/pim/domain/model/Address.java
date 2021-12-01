@@ -1,12 +1,9 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,7 +37,7 @@ public class Address {
     @ToString.Exclude
     private List<Customer> customers;
 
-    public final void addToCustomerList(Customer customerReference){
+    public final void addToCustomerList(Customer customerReference) {
         customers.add(customerReference);
     }
 

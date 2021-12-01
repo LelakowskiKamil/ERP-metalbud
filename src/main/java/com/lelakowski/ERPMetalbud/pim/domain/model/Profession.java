@@ -1,13 +1,9 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Employee;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,7 +28,7 @@ public class Profession {
     @ToString.Exclude
     private List<Employee> employees;
 
-    public final void addToEmployeeList(Employee employeeReference){
+    public final void addToEmployeeList(Employee employeeReference) {
         employees.add(employeeReference);
     }
 

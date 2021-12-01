@@ -44,7 +44,7 @@ public class DimensionsServiceImpl implements DimensionsService {
         );
 
         Dimensions dimensions = dimensionsRepository.save(dimensionsToSave);
-        saveReferences(dimensions,height,length,width);
+        saveReferences(dimensions, height, length, width);
 
         return dimensions.getId();
     }

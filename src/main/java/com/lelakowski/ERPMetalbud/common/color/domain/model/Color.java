@@ -23,7 +23,7 @@ public class Color {
     @OneToMany(mappedBy = "color", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<ProductDetails> productDetails;
 
-    public final void addToProductDetailsList(ProductDetails productDetailReference){
+    public final void addToProductDetailsList(ProductDetails productDetailReference) {
         productDetails.add(productDetailReference);
     }
 }

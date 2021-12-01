@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AddressService {
 
-     Long saveAddress(CreateAddressCommand createAddressCommand);
+    Long saveAddress(CreateAddressCommand createAddressCommand);
 
-     List<Address> getAddresses();
+    List<Address> getAddresses();
 }

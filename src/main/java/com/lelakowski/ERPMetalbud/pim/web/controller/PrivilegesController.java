@@ -1,8 +1,6 @@
 package com.lelakowski.ERPMetalbud.pim.web.controller;
 
-import com.lelakowski.ERPMetalbud.pim.domain.model.Privileges;
 import com.lelakowski.ERPMetalbud.pim.service.PrivilegesService;
-import com.lelakowski.ERPMetalbud.pim.service.PrivilegesServiceImpl;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreatePrivilegesCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

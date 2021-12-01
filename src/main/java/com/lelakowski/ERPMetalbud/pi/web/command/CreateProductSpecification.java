@@ -1,7 +1,6 @@
 package com.lelakowski.ERPMetalbud.pi.web.command;
 
 import com.lelakowski.ERPMetalbud.common.web.command.CreateDimensionsCommand;
-import com.lelakowski.ERPMetalbud.mi.web.command.CreateBillOfMaterialsCommand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +19,6 @@ public class CreateProductSpecification {
     private String caption;
     @NotBlank
     private CreateDimensionsCommand dimensions;
-
-
-
-
 
 
 }

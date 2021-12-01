@@ -5,6 +5,7 @@ import com.lelakowski.ERPMetalbud.mi.domain.model.BillOfMaterialItem;
 import com.lelakowski.ERPMetalbud.mi.domain.model.Material;
 import com.lelakowski.ERPMetalbud.mi.domain.repository.BillOfMaterialItemRepository;
 import com.lelakowski.ERPMetalbud.mi.domain.repository.MaterialRepository;
+import com.lelakowski.ERPMetalbud.mi.validation.CreateBillOfMaterialItemValidator;
 import com.lelakowski.ERPMetalbud.mi.web.command.CreateBillOfMaterialItemCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,12 @@ public class BillOfMaterialItemServiceImpl implements BillOfMaterialItemService 
     private final BillOfMaterialItemBuilder billOfMaterialItemBuilder;
     private final BillOfMaterialItemRepository billOfMaterialItemRepository;
     private final MaterialRepository materialRepository;
+    private final CreateBillOfMaterialItemValidator createBillOfMaterialItemValidator;
 
     @Transactional
     @Override
     public Long saveBillOfMaterialItem(CreateBillOfMaterialItemCommand createBillOfMaterialItemCommand) {
-        //TODO validation
+        createBillOfMaterialItemValidator.validate(createBillOfMaterialItemCommand);
         Material material = materialRepository.getOne(createBillOfMaterialItemCommand.getMaterialId());
 
         BillOfMaterialItem billOfMaterialItemToSave = billOfMaterialItemBuilder.from(

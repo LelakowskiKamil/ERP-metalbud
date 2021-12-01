@@ -2,7 +2,6 @@ package com.lelakowski.ERPMetalbud.pim.web.controller;
 
 import com.lelakowski.ERPMetalbud.pim.domain.model.Employee;
 import com.lelakowski.ERPMetalbud.pim.service.EmployeeService;
-import com.lelakowski.ERPMetalbud.pim.service.EmployeeServiceImpl;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateEmployeeCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

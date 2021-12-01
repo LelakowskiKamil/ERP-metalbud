@@ -1,10 +1,7 @@
 package com.lelakowski.ERPMetalbud.pi.web.controller;
 
 import com.lelakowski.ERPMetalbud.pi.domain.model.Brand;
-import com.lelakowski.ERPMetalbud.pi.domain.model.ProductSpecification;
-import com.lelakowski.ERPMetalbud.pi.service.BrandService;
 import com.lelakowski.ERPMetalbud.pi.service.ProductSpecificationService;
-import com.lelakowski.ERPMetalbud.pi.web.command.CreateBrandCommand;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

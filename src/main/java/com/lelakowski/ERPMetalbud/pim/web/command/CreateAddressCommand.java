@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.pim.web.command;
 
-import com.lelakowski.ERPMetalbud.pim.domain.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

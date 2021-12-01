@@ -1,15 +1,12 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.lelakowski.ERPMetalbud.pi.domain.model.Product;
-import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,7 +39,7 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Customer> customers;
 
-    public final void addToCustomerList(Customer customerReference){
+    public final void addToCustomerList(Customer customerReference) {
         customers.add(customerReference);
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MaterialServiceImpl implements MaterialService{
+public class MaterialServiceImpl implements MaterialService {
 
     private final MaterialBuilder materialBuilder;
     private final MaterialRepository materialRepository;
@@ -23,7 +23,7 @@ public class MaterialServiceImpl implements MaterialService{
         return material.getId();
     }
 
-    public List<Material> getMaterials(){
+    public List<Material> getMaterials() {
         return materialRepository.findAll();
     }
 }

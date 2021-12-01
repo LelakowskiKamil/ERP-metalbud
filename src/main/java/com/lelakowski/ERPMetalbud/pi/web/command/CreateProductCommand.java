@@ -1,16 +1,12 @@
 package com.lelakowski.ERPMetalbud.pi.web.command;
 
 import com.lelakowski.ERPMetalbud.mi.web.command.CreateBillOfMaterialItemCommand;
-import com.lelakowski.ERPMetalbud.mi.web.command.CreateBillOfMaterialsCommand;
-import com.lelakowski.ERPMetalbud.pe.web.command.CreatePriceCommand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -27,13 +23,8 @@ public class CreateProductCommand {
     private Long vendorId;
     private Long brandId;
     private List<CreateBillOfMaterialItemCommand> billOfMaterials;
-    private Long productSpecificationId;
     private double priceValue;
     private String priceCurrency;
-
-
-
-
 
 
 }

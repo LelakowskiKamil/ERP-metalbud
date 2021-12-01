@@ -1,12 +1,9 @@
 package com.lelakowski.ERPMetalbud.mi.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Product;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter

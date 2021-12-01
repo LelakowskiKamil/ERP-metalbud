@@ -34,7 +34,7 @@ public class ProductSpecificationServiceImpl implements ProductSpecificationServ
         );
 
         ProductSpecification productSpecification = productSpecificationRepository.save(productSpecificationToSave);
-        saveReferences(productSpecification,dimensions);
+        saveReferences(productSpecification, dimensions);
 
         return productSpecificationToSave.getId();
     }
@@ -44,7 +44,7 @@ public class ProductSpecificationServiceImpl implements ProductSpecificationServ
         return productSpecificationRepository.findAll();
     }
 
-    private void saveReferences(ProductSpecification productSpecificationReference, Dimensions dimensions){
+    private void saveReferences(ProductSpecification productSpecificationReference, Dimensions dimensions) {
         dimensions.addToProductSpecificationList(productSpecificationReference);
     }
 }

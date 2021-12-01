@@ -35,7 +35,7 @@ public class Dimensions {
     @OneToMany(mappedBy = "dimensions", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<ProductSpecification> productSpecifications;
 
-    public final void addToProductSpecificationList(ProductSpecification productSpecificationReference){
+    public final void addToProductSpecificationList(ProductSpecification productSpecificationReference) {
         productSpecifications.add(productSpecificationReference);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AccountService {
 
-     Long saveAccount(CreateAccountCommand createAccountCommand);
+    Long saveAccount(CreateAccountCommand createAccountCommand);
 
-     List<Account> getAccounts();
+    List<Account> getAccounts();
 }

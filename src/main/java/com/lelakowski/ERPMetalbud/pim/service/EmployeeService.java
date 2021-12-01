@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EmployeeService {
 
-     Long saveEmployee(CreateEmployeeCommand createEmployeeCommand);
+    Long saveEmployee(CreateEmployeeCommand createEmployeeCommand);
 
-     List<Employee> getEmployees();
+    List<Employee> getEmployees();
 }

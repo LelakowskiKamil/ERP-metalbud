@@ -2,7 +2,6 @@ package com.lelakowski.ERPMetalbud.pi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.lelakowski.ERPMetalbud.mi.domain.model.BillOfMaterialItem;
-import com.lelakowski.ERPMetalbud.mi.domain.model.BillOfMaterials;
 import com.lelakowski.ERPMetalbud.om.domain.model.ProductOrderItem;
 import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,7 +44,7 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductOrderItem> productOrderItems;
 
-    public final void addToProductOrderItemList(ProductOrderItem productOrderItem){
+    public final void addToProductOrderItemList(ProductOrderItem productOrderItem) {
         productOrderItems.add(productOrderItem);
     }
 

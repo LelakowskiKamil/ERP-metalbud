@@ -15,6 +15,7 @@ import com.lelakowski.ERPMetalbud.pi.domain.repository.BrandRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductDetailsRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.VendorRepository;
+import com.lelakowski.ERPMetalbud.pi.validation.CreateProductValidator;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,10 +38,13 @@ public class ProductServiceImpl implements ProductService {
     private final BillOfMaterialItemRepository billOfMaterialItemRepository;
     private final BrandRepository brandRepository;
     private final VendorRepository vendorRepository;
+    private final CreateProductValidator createProductValidator;
 
     @Transactional
     @Override
     public Long saveProduct(CreateProductCommand createProductCommand) {
+        createProductValidator.validate(createProductCommand);
+
         Long productDetailsId = productDetailsService.saveProductDetails(createProductCommand.getProductDetails());
         ProductDetails productDetails = productDetailsRepository.getOne(productDetailsId);
 

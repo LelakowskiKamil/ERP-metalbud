@@ -5,7 +5,7 @@ import com.lelakowski.ERPMetalbud.om.domain.model.ProductOrder;
 import com.lelakowski.ERPMetalbud.om.domain.model.ProductOrderItem;
 import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderItemRepository;
 import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderRepository;
-import com.lelakowski.ERPMetalbud.om.validator.CreateOrderValidator;
+import com.lelakowski.ERPMetalbud.om.validation.CreateOrderValidator;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderCommand;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Customer;
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
         Customer customer = customerRepository.getOne(createOrderCommand.getCustomerId());
         Privileges customerPrivileges = getPrivilegesForCustomer(customer);
 
-        if (!customerPrivileges.getCanCreate()) throw new IllegalArgumentException();
+        if (!customerPrivileges.getCanCreate()) throw new IllegalArgumentException(); //TODO notification
 
         ProductOrder productOrderToSave = productOrderBuilder.from(
                 createOrderCommand.getOrderDate(),
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
         return customerAccount.getPrivileges();
     }
 
-    private void saveReferences(ProductOrder productOrder, Customer customer, List<ProductOrderItem> productOrderItems){
+    private void saveReferences(ProductOrder productOrder, Customer customer, List<ProductOrderItem> productOrderItems) {
         customer.addToProductOrderList(productOrder);
         productOrderItems.forEach(orderItem -> orderItem.setProductOrder(productOrder));
     }

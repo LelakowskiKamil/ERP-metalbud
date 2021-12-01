@@ -34,13 +34,15 @@ public class Dimension {
     @OneToMany(mappedBy = "length", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Dimensions> dimensionsLength;
 
-    public final void addToDimensionsHeightList(Dimensions dimensionsReference){
+    public final void addToDimensionsHeightList(Dimensions dimensionsReference) {
         dimensionsHeight.add(dimensionsReference);
     }
-    public final void addToDimensionsWidthList(Dimensions dimensionsReference){
+
+    public final void addToDimensionsWidthList(Dimensions dimensionsReference) {
         dimensionsWidth.add(dimensionsReference);
     }
-    public final void addToDimensionsLengthList(Dimensions dimensionsReference){
+
+    public final void addToDimensionsLengthList(Dimensions dimensionsReference) {
         dimensionsLength.add(dimensionsReference);
     }
 

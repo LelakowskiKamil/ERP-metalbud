@@ -33,16 +33,16 @@ public class AccountServiceImpl implements AccountService {
         );
 
         Account account = accountRepository.save(accountToSave);
-        saveReferences(account,privileges);
+        saveReferences(account, privileges);
 
         return account.getId();
     }
 
     public List<Account> getAccounts() {
-     return accountRepository.findAll();
+        return accountRepository.findAll();
     }
 
-    private void saveReferences(Account accountReference, Privileges privileges){
+    private void saveReferences(Account accountReference, Privileges privileges) {
         privileges.addToAccountList(accountReference);
     }
 }

@@ -3,7 +3,8 @@ package com.lelakowski.ERPMetalbud.pim.service;
 import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
 import com.lelakowski.ERPMetalbud.pe.domain.repository.PriceRepository;
 import com.lelakowski.ERPMetalbud.pim.builder.EmployeeBuilder;
-import com.lelakowski.ERPMetalbud.pim.domain.model.*;
+import com.lelakowski.ERPMetalbud.pim.domain.model.Employee;
+import com.lelakowski.ERPMetalbud.pim.domain.model.Profession;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.EmployeeRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.ProfessionRepository;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateEmployeeCommand;
@@ -36,16 +37,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         );
 
         Employee employee = employeeRepository.save(employeeToSave);
-        saveReferences(employee,profession,salaryGross);
+        saveReferences(employee, profession, salaryGross);
 
         return employee.getId();
     }
 
     public List<Employee> getEmployees() {
-     return employeeRepository.findAll();
+        return employeeRepository.findAll();
     }
 
-    private void saveReferences(Employee employeeReference, Profession profession, Price salaryGross){
+    private void saveReferences(Employee employeeReference, Profession profession, Price salaryGross) {
         profession.addToEmployeeList(employeeReference);
         salaryGross.addToEmployeeList(employeeReference);
     }

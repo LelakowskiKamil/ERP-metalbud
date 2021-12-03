@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -23,7 +24,9 @@ public class CreateEmployeeCommand {
     Long professionId;
     @NotNull
     Date employmentDate;
-    @NotNull
-    Long priceId;
+    @Min(0)
+    private double priceValue;
+    @NotBlank
+    private String priceCurrency;
 
 }

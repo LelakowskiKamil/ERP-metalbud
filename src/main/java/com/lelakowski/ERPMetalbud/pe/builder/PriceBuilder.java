@@ -11,8 +11,6 @@ import java.util.ArrayList;
 public class PriceBuilder {
 
     public Price from(double value, String currency) {
-        if (currency == null || currency.equals("")) throw new IllegalArgumentException(); //TODO notification
-
         return Price.builder()
                 .value(value)
                 .currency(currency)

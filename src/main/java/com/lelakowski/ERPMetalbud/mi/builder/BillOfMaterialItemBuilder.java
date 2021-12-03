@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class BillOfMaterialItemBuilder {
 
     public BillOfMaterialItem from(Material material, Double quantity) {
-        //TODO validation
         return BillOfMaterialItem.builder()
                 .material(material)
                 .quantity(quantity)

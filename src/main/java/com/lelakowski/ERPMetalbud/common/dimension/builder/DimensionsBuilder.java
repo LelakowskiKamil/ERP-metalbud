@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class DimensionsBuilder {
 
     public Dimensions from(String caption, Dimension height, Dimension length, Dimension width) {
-//TODO validation
         return Dimensions.builder()
                 .caption(caption)
                 .height(height)

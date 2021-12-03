@@ -11,8 +11,6 @@ import java.util.ArrayList;
 public class DimensionBuilder {
 
     public Dimension from(Double value, String unit) {
-        if (value == null || unit.equals("")) throw new IllegalArgumentException(); //TODO notification
-
         return Dimension.builder()
                 .value(value)
                 .unit(unit)

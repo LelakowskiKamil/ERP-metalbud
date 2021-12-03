@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class ProductDetailsBuilder {
 
     public ProductDetails from(ProductSpecification productSpecification, Color color) {
-        //TODO validation
         return ProductDetails.builder()
                 .productSpecification(productSpecification)
                 .color(color)

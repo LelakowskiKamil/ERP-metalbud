@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class BrandBuilder {
 
     public Brand from(String caption) {
-//TODO validation
         return Brand.builder()
                 .caption(caption)
                 .products(new ArrayList<>())

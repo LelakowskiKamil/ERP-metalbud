@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -18,12 +20,17 @@ public class CreateProductCommand {
     @NotBlank
     @Size(min = 2, max = 50)
     private String caption;
-    @NotBlank
+    @NotNull
     private CreateProductDetailsCommand productDetails;
+    @NotNull
     private Long vendorId;
+    @NotNull
     private Long brandId;
+    @NotNull
     private List<CreateBillOfMaterialItemCommand> billOfMaterials;
+    @Min(0)
     private double priceValue;
+    @NotBlank
     private String priceCurrency;
 
 

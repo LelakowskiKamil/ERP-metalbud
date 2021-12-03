@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -16,7 +17,7 @@ public class CreateBillOfMaterialItemCommand {
 
     @NotBlank
     private Long materialId;
-    @NotNull
+    @Min(value = 0)
     private Double quantity;
 
 

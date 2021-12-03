@@ -1,7 +1,12 @@
 package com.lelakowski.ERPMetalbud.pim.validation;
 
+import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.AccountRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.AddressRepository;
+import com.lelakowski.ERPMetalbud.pim.notification.NotFoundAccountWithIdException;
+import com.lelakowski.ERPMetalbud.pim.notification.NotFoundAddressWithIdException;
+import com.lelakowski.ERPMetalbud.pim.notification.NotFoundPrivilegesWithIdException;
+import com.lelakowski.ERPMetalbud.pim.web.command.CreateAccountCommand;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateCustomerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +19,8 @@ public class CreateCustomerValidator {
     private final AddressRepository addressRepository;
 
     public void validate(CreateCustomerCommand createCustomerCommand) {
-        if (createCustomerCommand == null) throw new IllegalArgumentException(); //TODO notification
+        if (createCustomerCommand == null)
+            throw new IllegalCommandContentException(CreateCustomerCommand.class.getSimpleName());
 
         validateAccountExisting(createCustomerCommand.getAccountId());
         validateAddressExisting(createCustomerCommand.getAddressId());
@@ -22,13 +28,13 @@ public class CreateCustomerValidator {
 
     private void validateAccountExisting(Long accountId) {
         if (!accountRepository.existsById(accountId)) {
-            throw new IllegalArgumentException("Nie ma takiego konta"); //TODO notification
+            throw new NotFoundAccountWithIdException(accountId);
         }
     }
 
     private void validateAddressExisting(Long addressId) {
         if (!addressRepository.existsById(addressId)) {
-            throw new IllegalArgumentException("Nie ma takiego adresu"); //TODO notification
+            throw new NotFoundAddressWithIdException(addressId);
         }
     }
 }

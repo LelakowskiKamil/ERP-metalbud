@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class MaterialBuilder {
 
     public Material from(String caption) {
-//TODO validation
         return Material.builder()
                 .caption(caption)
                 .billOfMaterialItems(new ArrayList<>())

@@ -1,6 +1,8 @@
 package com.lelakowski.ERPMetalbud.om.validation;
 
+import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderCommand;
+import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +15,8 @@ public class CreateOrderValidator {
     private final CreateOrderItemValidator createOrderItemValidator;
 
     public void validate(CreateOrderCommand createOrderCommand) {
-        if (createOrderCommand == null) throw new IllegalArgumentException(); //TODO notification
+        if (createOrderCommand == null)
+            throw new IllegalCommandContentException(CreateOrderItemCommand.class.getSimpleName());
 
         validateCustomerExisting(createOrderCommand.getCustomerId());
         createOrderCommand.getOrderItems()

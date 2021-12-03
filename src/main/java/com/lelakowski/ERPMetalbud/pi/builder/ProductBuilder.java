@@ -24,7 +24,6 @@ public class ProductBuilder {
             Vendor vendor,
             Brand brand
     ) {
-//TODO validation
         return Product.builder()
                 .productDetails(productDetails)
                 .caption(caption)

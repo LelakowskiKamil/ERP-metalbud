@@ -1,6 +1,9 @@
 package com.lelakowski.ERPMetalbud.pim.validation;
 
+import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
+import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.PrivilegesRepository;
+import com.lelakowski.ERPMetalbud.pim.notification.NotFoundPrivilegesWithIdException;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateAccountCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,14 +15,15 @@ public class CreateAccountValidator {
     private final PrivilegesRepository privilegesRepository;
 
     public void validate(CreateAccountCommand createAccountCommand) {
-        if (createAccountCommand == null) throw new IllegalArgumentException(); //TODO notification
+        if (createAccountCommand == null)
+            throw new IllegalCommandContentException(CreateAccountCommand.class.getSimpleName());
 
         validatePrivilegesExisting(createAccountCommand.getPrivilegesId());
     }
 
     private void validatePrivilegesExisting(Long privilegesId) {
         if (!privilegesRepository.existsById(privilegesId)) {
-            throw new IllegalArgumentException("Nie ma takiego privileges"); //TODO notification
+            throw new NotFoundPrivilegesWithIdException(privilegesId);
         }
     }
 }

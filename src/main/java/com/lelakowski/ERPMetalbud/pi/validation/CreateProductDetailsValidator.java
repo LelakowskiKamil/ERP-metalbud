@@ -1,7 +1,11 @@
 package com.lelakowski.ERPMetalbud.pi.validation;
 
 import com.lelakowski.ERPMetalbud.common.color.domain.repository.ColorRepository;
+import com.lelakowski.ERPMetalbud.common.color.notification.NotFoundColorWithOEMException;
+import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
+import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductSpecificationRepository;
+import com.lelakowski.ERPMetalbud.pi.notification.NotFoundProductSpecificationWithIdException;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductDetailsCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +18,8 @@ public class CreateProductDetailsValidator {
     private final ColorRepository colorRepository;
 
     public void validate(CreateProductDetailsCommand createProductDetailsCommand) {
-        if (createProductDetailsCommand == null) throw new IllegalArgumentException(); //TODO notification
+        if (createProductDetailsCommand == null)
+            throw new IllegalCommandContentException(CreateProductDetailsCommand.class.getSimpleName());
 
         validateProductSpecificationExisting(createProductDetailsCommand.getProductSpecificationId());
         validateColorExisting(createProductDetailsCommand.getOem());
@@ -22,13 +27,13 @@ public class CreateProductDetailsValidator {
 
     private void validateProductSpecificationExisting(Long productSpecificationId) {
         if (!productSpecificationRepository.existsById(productSpecificationId)) {
-            throw new IllegalArgumentException("Nie ma takiego prodSpec"); //TODO notification
+            throw new NotFoundProductSpecificationWithIdException(productSpecificationId);
         }
     }
 
     private void validateColorExisting(String oem) {
         if (colorRepository.getColorByOEM(oem).isEmpty()) {
-            throw new IllegalArgumentException("Nie ma takie koloru"); //TODO notification
+            throw new NotFoundColorWithOEMException(oem);
         }
     }
 }

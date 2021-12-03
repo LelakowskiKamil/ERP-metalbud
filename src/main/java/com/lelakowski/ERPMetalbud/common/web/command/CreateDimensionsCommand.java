@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -15,11 +17,11 @@ public class CreateDimensionsCommand {
 
     @NotBlank
     private String caption;
-    @NotBlank
+    @Min(value = 0)
     private double height;
-    @NotBlank
+    @Min(value = 0)
     private double width;
-    @NotBlank
+    @Min(value = 0)
     private double length;
     @NotBlank
     private String unit;

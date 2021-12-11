@@ -43,4 +43,11 @@ public class Account {
         customers.add(customerReference);
     }
 
+    public Account(String username, String password, String email, Privileges privileges, List<Customer> customers) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.privileges = privileges;
+        this.customers = customers;
+    }
 }

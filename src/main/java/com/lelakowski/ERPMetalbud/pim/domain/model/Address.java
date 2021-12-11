@@ -41,4 +41,11 @@ public class Address {
         customers.add(customerReference);
     }
 
+    public Address(String city, String postalCode, String state, String country, List<Customer> customers) {
+        this.city = city;
+        this.postalCode = postalCode;
+        this.state = state;
+        this.country = country;
+        this.customers = customers;
+    }
 }

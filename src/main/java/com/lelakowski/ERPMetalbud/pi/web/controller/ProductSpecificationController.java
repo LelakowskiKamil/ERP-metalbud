@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class ProductSpecificationController {
 
 
     @PostMapping(path = "/productspecifications", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Brand> createProductSpecification(@RequestBody CreateProductSpecification createProductSpecification) {
+    ResponseEntity<Brand> createProductSpecification(@RequestBody @Valid CreateProductSpecification createProductSpecification) {
         productSpecificationService.saveProductSpecification(createProductSpecification);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

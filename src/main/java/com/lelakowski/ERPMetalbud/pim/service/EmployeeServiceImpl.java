@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.pim.service;
 
-import com.lelakowski.ERPMetalbud.pe.builder.PriceBuilder;
 import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
 import com.lelakowski.ERPMetalbud.pe.domain.repository.PriceRepository;
 import com.lelakowski.ERPMetalbud.pe.service.PriceService;
@@ -13,7 +12,6 @@ import com.lelakowski.ERPMetalbud.pim.validation.CreateEmployeeValidator;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateEmployeeCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final PriceRepository priceRepository;
     private final CreateEmployeeValidator createEmployeeValidator;
 
-    @Transactional
+
     @Override
     public Long saveEmployee(CreateEmployeeCommand createEmployeeCommand) {
         createEmployeeValidator.validate(createEmployeeCommand);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class AccountController {
 
 
     @PostMapping(path = "/accounts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Account> createAccount(@RequestBody CreateAccountCommand createAccountCommand) {
+    ResponseEntity<Account> createAccount(@RequestBody @Valid CreateAccountCommand createAccountCommand) {
         accountService.saveAccount(createAccountCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

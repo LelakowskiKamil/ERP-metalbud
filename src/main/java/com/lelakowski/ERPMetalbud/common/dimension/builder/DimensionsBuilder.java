@@ -15,8 +15,8 @@ public class DimensionsBuilder {
         return Dimensions.builder()
                 .caption(caption)
                 .height(height)
-                .length(length)
                 .width(width)
+                .length(length)
                 .productSpecifications(new ArrayList<>())
                 .build();
     }

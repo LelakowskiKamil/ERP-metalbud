@@ -39,4 +39,11 @@ public class Dimensions {
         productSpecifications.add(productSpecificationReference);
     }
 
+    public Dimensions(String caption, Dimension height, Dimension width, Dimension length, List<ProductSpecification> productSpecifications) {
+        this.caption = caption;
+        this.height = height;
+        this.width = width;
+        this.length = length;
+        this.productSpecifications = productSpecifications;
+    }
 }

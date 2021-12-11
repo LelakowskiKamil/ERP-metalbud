@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class EmployeeController {
     }
 
     @PostMapping(path = "/employees", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Employee> createEmployee(@RequestBody CreateEmployeeCommand createEmployeeCommand) {
+    ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeCommand createEmployeeCommand) {
         employeeService.saveEmployee(createEmployeeCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -22,7 +22,7 @@ public class DimensionServiceImpl implements DimensionService {
     }
 
     @Override
-    public List<Dimension> geDimensions() {
+    public List<Dimension> getDimensions() {
         return dimensionRepository.findAll();
     }
 }

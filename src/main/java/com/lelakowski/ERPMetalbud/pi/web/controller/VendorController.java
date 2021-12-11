@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class VendorController {
 
 
     @PostMapping(path = "/vendors", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Vendor> createVendor(@RequestBody CreateVendorCommand createVendorCommand) {
+    ResponseEntity<Vendor> createVendor(@RequestBody @Valid CreateVendorCommand createVendorCommand) {
         vendorService.saveVendor(createVendorCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

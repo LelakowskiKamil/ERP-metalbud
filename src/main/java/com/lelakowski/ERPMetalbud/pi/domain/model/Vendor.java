@@ -20,8 +20,9 @@ public class Vendor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
-    String caption;
+    private Long id;
+
+    private String caption;
 
     @JsonBackReference
     @OneToMany(mappedBy = "vendor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -29,5 +30,10 @@ public class Vendor {
 
     public final void addToProductList(Product product) {
         products.add(product);
+    }
+
+    public Vendor(String caption, List<Product> products) {
+        this.caption = caption;
+        this.products = products;
     }
 }

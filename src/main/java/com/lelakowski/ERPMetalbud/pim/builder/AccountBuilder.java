@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class AccountBuilder {
 
     public Account from(String username, String password, String email, Privileges privileges) {
-//TODO validation
         return Account.builder()
                 .username(username)
                 .password(password)

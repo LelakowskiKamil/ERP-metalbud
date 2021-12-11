@@ -20,9 +20,9 @@ public class CreateAddressCommand {
     @Size(min = 5, max = 30)
     private String postalCode;
     @NotBlank
-    @Size(min = 5, max = 100)
+    @Size(min = 2, max = 100)
     private String state;
     @NotBlank
-    @Size(min = 5, max = 100)
+    @Size(min = 2, max = 100)
     private String country;
 }

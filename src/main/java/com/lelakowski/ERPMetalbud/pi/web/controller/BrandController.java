@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class BrandController {
 
 
     @PostMapping(path = "/brands", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Brand> createBrand(@RequestBody CreateBrandCommand createBrandCommand) {
+    ResponseEntity<Brand> createBrand(@RequestBody @Valid CreateBrandCommand createBrandCommand) {
         brandService.saveBrand(createBrandCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

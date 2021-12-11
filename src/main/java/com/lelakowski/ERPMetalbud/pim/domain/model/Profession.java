@@ -32,5 +32,9 @@ public class Profession {
         employees.add(employeeReference);
     }
 
+    public Profession(String designation, List<Employee> employees) {
+        this.designation = designation;
+        this.employees = employees;
+    }
 
 }

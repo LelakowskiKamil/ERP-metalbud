@@ -6,10 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Slf4j
 @Entity
 @Getter
 @NoArgsConstructor
@@ -27,11 +29,17 @@ public class ProductSpecification {
     @JoinColumn(name = "dimensions_id")
     Dimensions dimensions;
     @JsonBackReference
-    @OneToMany(mappedBy = "productSpecification", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productSpecification", cascade = CascadeType.ALL)
     List<ProductDetails> productDetails;
 
     public final void addToProductDetailsList(ProductDetails productDetailReference) {
         productDetails.add(productDetailReference);
+    }
+
+    public ProductSpecification(String caption, Dimensions dimensions, List<ProductDetails> productDetails) {
+        this.caption = caption;
+        this.dimensions = dimensions;
+        this.productDetails = productDetails;
     }
 
 }

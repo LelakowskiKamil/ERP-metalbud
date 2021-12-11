@@ -25,7 +25,7 @@ public class ProductDetails {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "color_id")
     Color color;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_specification_id")
     ProductSpecification productSpecification;
 
@@ -35,5 +35,11 @@ public class ProductDetails {
 
     public final void addToProductList(Product productReference) {
         products.add(productReference);
+    }
+
+    public ProductDetails(Color color, ProductSpecification productSpecification, List<Product> products) {
+        this.color = color;
+        this.productSpecification = productSpecification;
+        this.products = products;
     }
 }

@@ -4,7 +4,7 @@ import com.lelakowski.ERPMetalbud.common.dimension.builder.DimensionsBuilder;
 import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimension;
 import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimensions;
 import com.lelakowski.ERPMetalbud.common.dimension.domain.repository.DimensionsRepository;
-import com.lelakowski.ERPMetalbud.common.web.command.CreateDimensionsCommand;
+import com.lelakowski.ERPMetalbud.common.dimension.web.command.CreateDimensionsCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,45 +27,43 @@ public class DimensionsServiceImpl implements DimensionsService {
                 createDimensionsCommand.getUnit()
         );
 
-        Dimension length = dimensionService.saveDimension(
-                createDimensionsCommand.getLength(),
-                createDimensionsCommand.getUnit()
-        );
         Dimension width = dimensionService.saveDimension(
                 createDimensionsCommand.getWidth(),
                 createDimensionsCommand.getUnit()
         );
 
+        Dimension length = dimensionService.saveDimension(
+                createDimensionsCommand.getLength(),
+                createDimensionsCommand.getUnit()
+        );
+
+
         Dimensions dimensionsToSave = dimensionsBuilder.from(
                 createDimensionsCommand.getCaption(),
                 height,
-                length,
-                width
+                width,
+                length
         );
 
         Dimensions dimensions = dimensionsRepository.save(dimensionsToSave);
-        saveReferences(dimensions, height, length, width);
+        saveReferences(dimensions, height, width, length);
 
         return dimensions.getId();
     }
 
     @Override
-    public List<Dimensions> geDimensions() {
+    public List<Dimensions> getDimensions() {
         return dimensionsRepository.findAll();
     }
 
     private void saveReferences(
             Dimensions dimensionsReference,
             Dimension height,
-            Dimension length,
-            Dimension width
+            Dimension width,
+            Dimension length
     ) {
-        System.out.println(height.toString());
-        System.out.println(length.toString());
-        System.out.println(width.toString());
-        System.out.println(dimensionsReference.toString());
         height.addToDimensionsHeightList(dimensionsReference);
-        length.addToDimensionsLengthList(dimensionsReference);
         width.addToDimensionsWidthList(dimensionsReference);
+        length.addToDimensionsLengthList(dimensionsReference);
     }
 }

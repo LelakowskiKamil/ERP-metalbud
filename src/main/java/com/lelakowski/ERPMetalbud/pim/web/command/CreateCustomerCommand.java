@@ -16,10 +16,10 @@ import javax.validation.constraints.Size;
 public class CreateCustomerCommand {
 
     @NotBlank
-    @Size(min = 5, max = 50)
+    @Size(min = 2, max = 50)
     String name;
     @NotBlank
-    @Size(min = 5, max = 50)
+    @Size(min = 2, max = 50)
     String surname;
     @NotNull
     Long accountId;

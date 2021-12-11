@@ -30,4 +30,9 @@ public class Brand {
     public final void addToProductList(Product product) {
         products.add(product);
     }
+
+    public Brand(String caption, List<Product> products) {
+        this.caption = caption;
+        this.products = products;
+    }
 }

@@ -1,4 +1,4 @@
-package com.lelakowski.ERPMetalbud.common.web.command;
+package com.lelakowski.ERPMetalbud.common.dimension.web.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Data
 @Builder
@@ -21,7 +21,7 @@ public class CreateDimensionsCommand {
     private double height;
     @Min(value = 0)
     private double width;
-    @Min(value = 0)
+    @Positive
     private double length;
     @NotBlank
     private String unit;

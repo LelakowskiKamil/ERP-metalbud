@@ -45,4 +45,10 @@ public class Price {
         employees.add(employeeReference);
     }
 
+    public Price(double value, String currency, List<Employee> employees, List<Product> products) {
+        this.value = value;
+        this.currency = currency;
+        this.employees = employees;
+        this.products = products;
+    }
 }

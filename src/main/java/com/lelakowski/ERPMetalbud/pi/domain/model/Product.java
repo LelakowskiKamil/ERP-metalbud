@@ -25,7 +25,7 @@ public class Product {
     @Column(name = "id")
     private Long id;
     private String caption;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_details_id")
     private ProductDetails productDetails;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -34,7 +34,7 @@ public class Product {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id")
     private Brand brand;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "price_id")
     private Price price;
     @JsonBackReference
@@ -48,4 +48,13 @@ public class Product {
         productOrderItems.add(productOrderItem);
     }
 
+    public Product(String caption, ProductDetails productDetails, Vendor vendor, Brand brand, Price price, List<BillOfMaterialItem> billOfMaterialItems, List<ProductOrderItem> productOrderItems) {
+        this.caption = caption;
+        this.productDetails = productDetails;
+        this.vendor = vendor;
+        this.brand = brand;
+        this.price = price;
+        this.billOfMaterialItems = billOfMaterialItems;
+        this.productOrderItems = productOrderItems;
+    }
 }

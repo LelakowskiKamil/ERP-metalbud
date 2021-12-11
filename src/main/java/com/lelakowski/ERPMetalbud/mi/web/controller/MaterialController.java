@@ -11,13 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/")
 public class MaterialController {
 
     private final MaterialService materialService;
@@ -27,9 +26,8 @@ public class MaterialController {
         return new ResponseEntity<>(materialService.getMaterials(), HttpStatus.OK);
     }
 
-
     @PostMapping(path = "/materials", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Material> createMaterial(@RequestBody CreateMaterialCommand createMaterialCommand) {
+    ResponseEntity<Material> createMaterial(@RequestBody @Valid CreateMaterialCommand createMaterialCommand) {
         materialService.saveMaterial(createMaterialCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -44,4 +44,11 @@ public class Customer {
         productOrderList.add(productOrder);
     }
 
+    public Customer(String name, String surname, Account account, Address address, List<ProductOrder> productOrderList) {
+        this.name = name;
+        this.surname = surname;
+        this.account = account;
+        this.address = address;
+        this.productOrderList = productOrderList;
+    }
 }

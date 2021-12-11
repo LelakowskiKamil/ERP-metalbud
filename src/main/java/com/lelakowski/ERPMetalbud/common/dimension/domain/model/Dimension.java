@@ -46,4 +46,11 @@ public class Dimension {
         dimensionsLength.add(dimensionsReference);
     }
 
+    public Dimension(Double value, String unit, List<Dimensions> dimensionsHeight, List<Dimensions> dimensionsWidth, List<Dimensions> dimensionsLength) {
+        this.value = value;
+        this.unit = unit;
+        this.dimensionsHeight = dimensionsHeight;
+        this.dimensionsWidth = dimensionsWidth;
+        this.dimensionsLength = dimensionsLength;
+    }
 }

@@ -45,4 +45,12 @@ public class Privileges {
         accounts.add(accountReference);
     }
 
+    public Privileges(String caption, Boolean canView, Boolean canCreate, Boolean canUpdate, Boolean canRemove, List<Account> accounts) {
+        this.caption = caption;
+        this.canView = canView;
+        this.canCreate = canCreate;
+        this.canUpdate = canUpdate;
+        this.canRemove = canRemove;
+        this.accounts = accounts;
+    }
 }

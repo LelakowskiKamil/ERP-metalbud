@@ -8,6 +8,6 @@ public interface DimensionService {
 
     Dimension saveDimension(Double value, String unit);
 
-    List<Dimension> geDimensions();
+    List<Dimension> getDimensions();
 
 }

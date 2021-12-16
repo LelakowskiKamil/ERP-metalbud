@@ -7,16 +7,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ERP-metalbud" />
+        <module name="pi" />
+        <module name="common" />
+        <module name="mi" />
+        <module name="pim" />
+        <module name="pe" />
+        <module name="om" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="11" />
       <module name="common-api" target="17" />
       <module name="ERP-metalbud" target="11" />
+      <module name="ERP-Metalbud" target="11" />
       <module name="fa" target="11" />
       <module name="mi" target="11" />
       <module name="om" target="11" />
+      <module name="ou" target="11" />
       <module name="pe" target="11" />
       <module name="pe-api" target="17" />
       <module name="pi" target="11" />
@@ -32,6 +39,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ERP-metalbud" options="-parameters" />
+      <module name="common" options="-parameters" />
       <module name="fa" options="-parameters" />
       <module name="mi" options="-parameters" />
       <module name="om" options="-parameters" />

@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -17,11 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class CreateOrderCommand {
 
-    @NotBlank
-    private Date orderDate;
     @NotNull
     private Long customerId;
-    @NotEmpty
     private List<CreateOrderItemCommand> orderItems;
 
 }

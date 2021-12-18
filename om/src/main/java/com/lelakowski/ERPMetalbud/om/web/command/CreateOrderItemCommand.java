@@ -17,5 +17,10 @@ public class CreateOrderItemCommand {
     private Integer quantity;
     @NotNull
     private Long productId;
+    private Long orderId;
 
+    public CreateOrderItemCommand(Integer quantity, Long productId) {
+        this.quantity = quantity;
+        this.productId = productId;
+    }
 }

@@ -19,7 +19,7 @@ public class ProductOrderItem {
     private Integer quantity;
 
     @Setter
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_order_id", referencedColumnName = "id")
     private ProductOrder productOrder;
 

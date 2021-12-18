@@ -26,6 +26,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.GregorianCalendar;
+
+import static com.lelakowski.ERPMetalbud.common.utils.DateTimeHelper.fromGregorianCalendar;
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = ProductInformationManagementApplication.class)
 @SpringBootTest
@@ -54,9 +58,10 @@ class EmployeeControllerTest {
         professionRepository.save(profession);
         Price price = new Price(1.5, "PLN");
         priceRepository.save(price);
-        Employee employee = new Employee("email@email.pl", profession, "10-10-2020", price);
+        String employmentDate = fromGregorianCalendar(new GregorianCalendar(2020, 1, 1, 0, 0, 0));
+        Employee employee = new Employee("email@email.pl", profession, employmentDate, price);
         employeeRepository.save(employee);
-        String expectedContent = "[{\"id\":1,\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"10-10-2020\",\"salaryGross\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
+        String expectedContent = "[{\"id\":1,\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"2020-02-01 00:00:00\",\"salaryGross\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
 
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
@@ -69,7 +74,8 @@ class EmployeeControllerTest {
     void test2() throws Exception {
         Profession profession = new Profession("test");
         professionRepository.save(profession);
-        CreateEmployeeCommand command = new CreateEmployeeCommand("email@email.pl", 1L, "10-10-2020", 1.5, "PLN");
+        String employmentDate = fromGregorianCalendar(new GregorianCalendar(2020, 1, 1, 0, 0, 0));
+        CreateEmployeeCommand command = new CreateEmployeeCommand("email@email.pl", 1L, employmentDate, 1.5, "PLN");
         Gson gson = new Gson();
         String json = gson.toJson(command);
         System.out.println(json);
@@ -81,7 +87,7 @@ class EmployeeControllerTest {
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        String expectedContent = "[{\"id\":1,\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"10-10-2020\",\"salaryGross\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
+        String expectedContent = "[{\"id\":1,\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"2020-02-01 00:00:00\",\"salaryGross\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())

@@ -109,6 +109,11 @@ public class TestEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
+    public Optional<Long> findEmployeeIdByCaption(String externalName) {
+        return Optional.empty();
+    }
+
+    @Override
     public <S extends Employee> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }

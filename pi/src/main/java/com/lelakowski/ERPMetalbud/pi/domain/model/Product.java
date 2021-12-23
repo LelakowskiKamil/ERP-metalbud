@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.pi.domain.model;
 
-import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,25 +19,30 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    private String caption;
+
+    @Column(name = "externalName", nullable = false, unique = true)
+    private String externalName;
+
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_details_id")
     private ProductDetails productDetails;
+
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
+
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id")
     private Brand brand;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "price_id")
-    private Price price;
 
-    public Product(String caption, ProductDetails productDetails, Vendor vendor, Brand brand, Price price) {
-        this.caption = caption;
+    @Column(name = "priceId", nullable = false)
+    private Long priceId;
+
+    public Product(String externalName, ProductDetails productDetails, Vendor vendor, Brand brand, Long priceId) {
+        this.externalName = externalName;
         this.productDetails = productDetails;
         this.vendor = vendor;
         this.brand = brand;
-        this.price = price;
+        this.priceId = priceId;
     }
 }

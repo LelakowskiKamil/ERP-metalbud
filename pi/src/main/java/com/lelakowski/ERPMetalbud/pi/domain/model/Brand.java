@@ -19,10 +19,12 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
-    String caption;
+
+    @Column(name = "externalName", nullable = false, unique = true)
+    String externalName;
 
 
-    public Brand(String caption) {
-        this.caption = caption;
+    public Brand(String externalName) {
+        this.externalName = externalName;
     }
 }

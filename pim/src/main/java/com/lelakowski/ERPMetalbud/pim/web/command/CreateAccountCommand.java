@@ -15,6 +15,9 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAccountCommand {
+
+    @NotBlank
+    String externalName;
     @NotBlank
     @Size(min = 2, max = 50)
     private String username;

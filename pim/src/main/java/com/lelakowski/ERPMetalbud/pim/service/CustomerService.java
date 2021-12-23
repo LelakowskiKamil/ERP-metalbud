@@ -10,4 +10,7 @@ public interface CustomerService {
     Long saveCustomer(CreateCustomerCommand createCustomerCommand);
 
     List<Customer> getCustomers();
+
+    Long getCustomerIdByExternalName(String externalName);
+
 }

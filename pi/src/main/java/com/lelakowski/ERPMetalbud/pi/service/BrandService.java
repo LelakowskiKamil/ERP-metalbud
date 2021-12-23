@@ -10,4 +10,7 @@ public interface BrandService {
     Long saveBrand(CreateBrandCommand createBrandCommand);
 
     List<Brand> getBrands();
+
+    Long getBrandIdByExternalName(String externalName);
+
 }

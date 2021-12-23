@@ -18,16 +18,16 @@ public class Address {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "city")
+    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "postal_code")
+    @Column(name = "postalCode", nullable = false)
     private String postalCode;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private String state;
 
-    @Column(name = "country")
+    @Column(name = "country", nullable = false)
     private String country;
 
 

@@ -8,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +25,10 @@ public class VendorController {
         return new ResponseEntity(vendorService.getVendors(), HttpStatus.OK);
     }
 
+    @GetMapping("/vendors/externalName/{externalName}")
+    public ResponseEntity<List> vendorIdByExternalName(@PathVariable("externalName") String externalName) {
+        return new ResponseEntity(vendorService.getVendorIdByExternalName(externalName), HttpStatus.OK);
+    }
 
     @PostMapping(path = "/vendors", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Vendor> createVendor(@RequestBody @Valid CreateVendorCommand createVendorCommand) {

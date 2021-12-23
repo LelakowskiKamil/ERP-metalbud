@@ -7,18 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
 public class AccountController {
 
     private final AccountService accountService;
@@ -26,6 +21,11 @@ public class AccountController {
     @GetMapping("/accounts")
     public ResponseEntity<List> getAccounts() {
         return new ResponseEntity(accountService.getAccounts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/accounts/externalName/{externalName}")
+    public ResponseEntity<List> accountIdByExternalName(@PathVariable("externalName") String externalName) {
+        return new ResponseEntity(accountService.getAccountIdByExternalName(externalName), HttpStatus.OK);
     }
 
 

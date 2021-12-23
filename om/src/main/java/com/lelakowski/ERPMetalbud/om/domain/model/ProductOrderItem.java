@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.om.domain.model;
 
-import com.lelakowski.ERPMetalbud.pi.domain.model.Product;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +15,8 @@ public class ProductOrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
     @Setter
@@ -23,10 +24,8 @@ public class ProductOrderItem {
     @JoinColumn(name = "product_order_id", referencedColumnName = "id")
     private ProductOrder productOrder;
 
-    @Setter
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
+    @Column(name = "productId", nullable = false)
+    private Long productId;
 
 
 }

@@ -20,19 +20,19 @@ public class Privileges {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "caption")
+    @Column(name = "caption", nullable = false, unique = true)
     private String caption;
 
-    @Column(name = "can_view")
+    @Column(name = "can_view", nullable = false)
     private Boolean canView;
 
-    @Column(name = "can_create")
+    @Column(name = "can_create", nullable = false)
     private Boolean canCreate;
 
-    @Column(name = "can_update")
+    @Column(name = "can_update", nullable = false)
     private Boolean canUpdate;
 
-    @Column(name = "can_remove")
+    @Column(name = "can_remove", nullable = false)
     private Boolean canRemove;
 
     public Privileges(String caption, Boolean canView, Boolean canCreate, Boolean canUpdate, Boolean canRemove) {

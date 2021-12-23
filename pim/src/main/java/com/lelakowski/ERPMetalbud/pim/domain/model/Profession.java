@@ -18,7 +18,7 @@ public class Profession {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "designation")
+    @Column(name = "designation", nullable = false)
     private String designation;
 
     public Profession(String designation) {

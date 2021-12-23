@@ -53,14 +53,14 @@ class CustomerControllerTest {
     void test1() throws Exception {
         Privileges privileges = new Privileges("Admin", true, true, true, true);
         privilegesRepository.save(privileges);
-        Account account = new Account("admin", "!Admin123", "admin@admin.pl", privileges);
+        Account account = new Account("externalName1", "admin", "!Admin123", "admin@admin.pl", privileges);
         accountRepository.save(account);
         Address address = new Address("Mielec", "12343424", "Podkarpackie", "Poland");
         addressRepository.save(address);
-        Customer customer = new Customer("Kamil", "Lelakowski", account, address);
+        Customer customer = new Customer("externalName1", "Kamil", "Lelakowski", account, address);
         customerRepository.save(customer);
 
-        String expectedContent = "[{\"id\":1,\"name\":\"Kamil\",\"surname\":\"Lelakowski\",\"account\":{\"id\":1,\"username\":\"admin\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}},\"address\":{\"id\":1,\"city\":\"Mielec\",\"postalCode\":\"12343424\",\"state\":\"Podkarpackie\",\"country\":\"Poland\"}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"externalName1\",\"name\":\"Kamil\",\"surname\":\"Lelakowski\",\"account\":{\"id\":1,\"externalName\":\"externalName1\",\"username\":\"admin\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}},\"address\":{\"id\":1,\"city\":\"Mielec\",\"postalCode\":\"12343424\",\"state\":\"Podkarpackie\",\"country\":\"Poland\"}}]";
 
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
@@ -73,13 +73,13 @@ class CustomerControllerTest {
     void test2() throws Exception {
         Privileges privileges = new Privileges("Admin", true, true, true, true);
         privilegesRepository.save(privileges);
-        Account account = new Account("admin", "!Admin123", "admin@admin.pl", privileges);
+        Account account = new Account("externalName2", "admin", "!Admin123", "admin@admin.pl", privileges);
         accountRepository.save(account);
         Address address = new Address("Mielec", "12343424", "Podkarpackie", "Poland");
         addressRepository.save(address);
 
-        CreateCustomerCommand command = new CreateCustomerCommand("Kamil", "Lelakowski", 1L, 1L);
-        String expectedContent = "[{\"id\":1,\"name\":\"Kamil\",\"surname\":\"Lelakowski\",\"account\":{\"id\":1,\"username\":\"admin\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}},\"address\":{\"id\":1,\"city\":\"Mielec\",\"postalCode\":\"12343424\",\"state\":\"Podkarpackie\",\"country\":\"Poland\"}}]";
+        CreateCustomerCommand command = new CreateCustomerCommand("externalName2", "Kamil", "Lelakowski", 1L, 1L);
+        String expectedContent = "[{\"id\":1,\"externalName\":\"externalName2\",\"name\":\"Kamil\",\"surname\":\"Lelakowski\",\"account\":{\"id\":1,\"externalName\":\"externalName2\",\"username\":\"admin\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}},\"address\":{\"id\":1,\"city\":\"Mielec\",\"postalCode\":\"12343424\",\"state\":\"Podkarpackie\",\"country\":\"Poland\"}}]";
 
         Gson gson = new Gson();
         String json = gson.toJson(command);
@@ -99,7 +99,7 @@ class CustomerControllerTest {
     @Test
     @DisplayName("- should throw error when data is incorrect correct")
     void test3() throws Exception {
-        CreateCustomerCommand command = new CreateCustomerCommand("K", "Lelakowski", 1L, 1L);
+        CreateCustomerCommand command = new CreateCustomerCommand("externalName3", "K", "Lelakowski", 1L, 1L);
 
         Gson gson = new Gson();
         String json = gson.toJson(command);

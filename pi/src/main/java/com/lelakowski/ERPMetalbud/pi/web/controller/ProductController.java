@@ -8,10 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +24,12 @@ public class ProductController {
     public ResponseEntity<List> getProducts() {
         return new ResponseEntity(productService.getProducts(), HttpStatus.OK);
     }
+
+    @GetMapping("/products/externalName/{externalName}")
+    public ResponseEntity<List> productIdByExternalName(@PathVariable("externalName") String externalName) {
+        return new ResponseEntity(productService.getProductIdByExternalName(externalName), HttpStatus.OK);
+    }
+
 
 
     @PostMapping(path = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

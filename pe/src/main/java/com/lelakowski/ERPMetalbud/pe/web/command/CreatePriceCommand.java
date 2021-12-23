@@ -14,6 +14,8 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class CreatePriceCommand {
 
+    @NotBlank
+    private String externalName;
     @Min(value = 0)
     private double value;
     @NotBlank

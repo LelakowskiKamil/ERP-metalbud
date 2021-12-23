@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.pi.web.command;
 
-import com.lelakowski.ERPMetalbud.common.dimension.web.command.CreateDimensionsCommand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

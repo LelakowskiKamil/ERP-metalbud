@@ -7,18 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -27,6 +22,12 @@ public class EmployeeController {
     public ResponseEntity<List> getEmployees() {
         return new ResponseEntity(employeeService.getEmployees(), HttpStatus.OK);
     }
+
+    @GetMapping("/employees/externalName/{externalName}")
+    public ResponseEntity<List> employeeIdByExternalName(@PathVariable("externalName") String externalName) {
+        return new ResponseEntity(employeeService.getEmployeeIdByExternalName(externalName), HttpStatus.OK);
+    }
+
 
     @PostMapping(path = "/employees", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeCommand createEmployeeCommand) {

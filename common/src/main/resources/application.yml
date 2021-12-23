@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: common
   jpa:
     hibernate:
       ddl-auto: create-drop

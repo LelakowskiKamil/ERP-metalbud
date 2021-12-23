@@ -19,6 +19,8 @@ public class Material {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "caption", nullable = false, unique = true)
     private String caption;
 
 }

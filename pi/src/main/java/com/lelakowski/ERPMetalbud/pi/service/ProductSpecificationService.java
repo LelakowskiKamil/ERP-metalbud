@@ -10,4 +10,7 @@ public interface ProductSpecificationService {
     Long saveProductSpecification(CreateProductSpecification createProductSpecification);
 
     List<ProductSpecification> getProductSpecifications();
+
+    Long getProductSpecificationIdByExternalName(String externalName);
+
 }

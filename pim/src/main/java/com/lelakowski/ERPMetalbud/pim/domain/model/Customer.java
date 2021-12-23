@@ -19,10 +19,13 @@ public class Customer {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "externalName", nullable = false, unique = true)
+    private String externalName;
+
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -33,7 +36,8 @@ public class Customer {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    public Customer(String name, String surname, Account account, Address address) {
+    public Customer(String externalName, String name, String surname, Account account, Address address) {
+        this.externalName = externalName;
         this.name = name;
         this.surname = surname;
         this.account = account;

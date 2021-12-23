@@ -10,4 +10,7 @@ public interface EmployeeService {
     Long saveEmployee(CreateEmployeeCommand createEmployeeCommand);
 
     List<Employee> getEmployees();
+
+    Long getEmployeeIdByExternalName(String externalName);
+
 }

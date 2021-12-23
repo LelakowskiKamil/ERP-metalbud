@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.pi.domain.model;
 
-import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimensions;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,14 +21,17 @@ public class ProductSpecification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
-    String caption;
+
+    @Column(name = "externalName", nullable = false, unique = true)
+    String externalName;
+
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "dimensions_id")
     Dimensions dimensions;
 
 
-    public ProductSpecification(String caption, Dimensions dimensions) {
-        this.caption = caption;
+    public ProductSpecification(String externalName, Dimensions dimensions) {
+        this.externalName = externalName;
         this.dimensions = dimensions;
     }
 

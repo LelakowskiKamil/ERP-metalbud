@@ -20,13 +20,16 @@ public class Account {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "externalName", nullable = false, unique = true)
+    private String externalName;
+
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -34,7 +37,8 @@ public class Account {
     private Privileges privileges;
 
 
-    public Account(String username, String password, String email, Privileges privileges) {
+    public Account(String externalName, String username, String password, String email, Privileges privileges) {
+        this.externalName = externalName;
         this.username = username;
         this.password = password;
         this.email = email;

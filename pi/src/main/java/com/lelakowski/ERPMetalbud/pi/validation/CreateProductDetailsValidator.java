@@ -1,9 +1,9 @@
 package com.lelakowski.ERPMetalbud.pi.validation;
 
-import com.lelakowski.ERPMetalbud.common.color.domain.repository.ColorRepository;
-import com.lelakowski.ERPMetalbud.common.color.notification.NotFoundColorWithOEMException;
 import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
+import com.lelakowski.ERPMetalbud.pi.domain.repository.ColorRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductSpecificationRepository;
+import com.lelakowski.ERPMetalbud.pi.notification.NotFoundColorWithOEMException;
 import com.lelakowski.ERPMetalbud.pi.notification.NotFoundProductSpecificationWithIdException;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductDetailsCommand;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class CreateProductDetailsValidator {
     }
 
     private void validateColorExisting(String oem) {
-        if (colorRepository.getColorByOEM(oem).isEmpty()) {
+        if (colorRepository.findColorByOEM(oem).isEmpty()) {
             throw new NotFoundColorWithOEMException(oem);
         }
     }

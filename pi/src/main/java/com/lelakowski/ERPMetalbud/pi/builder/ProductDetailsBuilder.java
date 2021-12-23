@@ -1,6 +1,6 @@
 package com.lelakowski.ERPMetalbud.pi.builder;
 
-import com.lelakowski.ERPMetalbud.common.color.domain.model.Color;
+import com.lelakowski.ERPMetalbud.pi.domain.model.Color;
 import com.lelakowski.ERPMetalbud.pi.domain.model.ProductDetails;
 import com.lelakowski.ERPMetalbud.pi.domain.model.ProductSpecification;
 import lombok.RequiredArgsConstructor;

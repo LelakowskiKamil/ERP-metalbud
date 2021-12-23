@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class VendorBuilder {
 
-    public Vendor from(String caption) {
+    public Vendor from(String externalName) {
         return Vendor.builder()
-                .caption(caption)
+                .externalName(externalName)
                 .build();
     }
 

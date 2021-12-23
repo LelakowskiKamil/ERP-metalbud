@@ -9,8 +9,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AccountBuilder {
 
-    public Account from(String username, String password, String email, Privileges privileges) {
+    public Account from(String externalName, String username, String password, String email, Privileges privileges) {
         return Account.builder()
+                .externalName(externalName)
                 .username(username)
                 .password(password)
                 .email(email)

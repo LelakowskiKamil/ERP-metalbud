@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: om
   jpa:
     hibernate:
       ddl-auto: create-drop

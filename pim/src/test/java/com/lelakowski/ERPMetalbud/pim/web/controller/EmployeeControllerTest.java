@@ -2,21 +2,23 @@ package com.lelakowski.ERPMetalbud.pim.web.controller;
 
 import com.google.gson.Gson;
 import com.lelakowski.ERPMetalbud.ProductInformationManagementApplication;
-import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
-import com.lelakowski.ERPMetalbud.pe.domain.repository.PriceRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Employee;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Profession;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.EmployeeRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.ProfessionRepository;
+import com.lelakowski.ERPMetalbud.pim.service.PriceApiClient;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateEmployeeCommand;
-import com.lelakowski.ERPMetalbud.pim.web.command.CreatePrivilegesCommand;
+import com.lelakowski.ERPMetalbud.pim.web.command.CreatePimPriceCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,6 +31,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.GregorianCalendar;
 
 import static com.lelakowski.ERPMetalbud.common.utils.DateTimeHelper.fromGregorianCalendar;
+import static org.mockito.ArgumentMatchers.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = ProductInformationManagementApplication.class)
@@ -41,10 +44,12 @@ class EmployeeControllerTest {
     EmployeeRepository employeeRepository;
 
     @Autowired
-    PriceRepository priceRepository;
-
-    @Autowired
     ProfessionRepository professionRepository;
+
+    @MockBean
+    PriceApiClient priceApiClient;
+
+    Gson gson = new Gson();
 
     @Autowired
     MockMvc mockMvc;
@@ -56,12 +61,11 @@ class EmployeeControllerTest {
     void test1() throws Exception {
         Profession profession = new Profession("test");
         professionRepository.save(profession);
-        Price price = new Price(1.5, "PLN");
-        priceRepository.save(price);
+
         String employmentDate = fromGregorianCalendar(new GregorianCalendar(2020, 1, 1, 0, 0, 0));
-        Employee employee = new Employee("email@email.pl", profession, employmentDate, price);
+        Employee employee = new Employee("externalName1", "email@email.pl", profession, employmentDate, 1L);
         employeeRepository.save(employee);
-        String expectedContent = "[{\"id\":1,\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"2020-02-01 00:00:00\",\"salaryGross\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"externalName1\",\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"2020-02-01 00:00:00\",\"salaryId\":1}]";
 
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
@@ -75,10 +79,15 @@ class EmployeeControllerTest {
         Profession profession = new Profession("test");
         professionRepository.save(profession);
         String employmentDate = fromGregorianCalendar(new GregorianCalendar(2020, 1, 1, 0, 0, 0));
-        CreateEmployeeCommand command = new CreateEmployeeCommand("email@email.pl", 1L, employmentDate, 1.5, "PLN");
-        Gson gson = new Gson();
+        CreatePimPriceCommand price = new CreatePimPriceCommand("price1", 1.5, "PLN");
+        CreateEmployeeCommand command = new CreateEmployeeCommand("externalName2", "email@email.pl", 1L, employmentDate, price);
+
         String json = gson.toJson(command);
-        System.out.println(json);
+
+        ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
+        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
+
 
         mockMvc.perform(MockMvcRequestBuilders.post(endpoint)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -87,7 +96,7 @@ class EmployeeControllerTest {
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        String expectedContent = "[{\"id\":1,\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"2020-02-01 00:00:00\",\"salaryGross\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"externalName2\",\"email\":\"email@email.pl\",\"profession\":{\"id\":1,\"designation\":\"test\"},\"employmentDate\":\"2020-02-01 00:00:00\",\"salaryId\":1}]";
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -95,12 +104,20 @@ class EmployeeControllerTest {
     }
 
     @Test
-    @DisplayName("- should throw error when data is incorrect correct")
+    @DisplayName("- should throw error when data is incorrect correct - wrong email syntax")
     void test3() throws Exception {
-        CreatePrivilegesCommand command = new CreatePrivilegesCommand("A", true, true, true, true);
+        Profession profession = new Profession("test");
+        professionRepository.save(profession);
+        String employmentDate = fromGregorianCalendar(new GregorianCalendar(2020, 1, 1, 0, 0, 0));
+        CreatePimPriceCommand price = new CreatePimPriceCommand("price1", 1.5, "PLN");
+        CreateEmployeeCommand command = new CreateEmployeeCommand("externalName3", "email@email.pl", 10L, employmentDate, price);
 
-        Gson gson = new Gson();
         String json = gson.toJson(command);
+
+        ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
+        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
+
         mockMvc.perform(MockMvcRequestBuilders.post(endpoint)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)

@@ -10,10 +10,6 @@ import com.lelakowski.ERPMetalbud.om.notification.IncorrectOrderStatusException;
 import com.lelakowski.ERPMetalbud.om.validation.CreateOrderValidator;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderCommand;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Customer;
-import com.lelakowski.ERPMetalbud.pim.domain.model.Privileges;
-import com.lelakowski.ERPMetalbud.pim.domain.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,16 +28,16 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ProductOrderBuilder productOrderBuilder;
     private final CreateOrderValidator createOrderValidator;
-    private final CustomerRepository customerRepository;
     private final OrderItemService orderItemService;
     private final OrderItemRepository orderItemRepository;
+    private final CustomerApiClient customerApiClient;
 
     @Transactional
     @Override
     public Long saveOrder(CreateOrderCommand createOrderCommand) {
         createOrderValidator.validate(createOrderCommand);
 
-        ProductOrder order = productOrderBuilder.emptyOrder();
+        ProductOrder order = productOrderBuilder.emptyOrder(createOrderCommand.getCustomerId());
         createOrderCommand.getOrderItems().forEach(orderItem -> orderItem.setOrderId(order.getId()));
 
         List<Long> productOrderItemIds = createOrderCommand.getOrderItems().stream()
@@ -49,12 +45,6 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
         List<ProductOrderItem> productOrderItems = orderItemRepository.findAllById(productOrderItemIds);
 
-        Customer customer = customerRepository.getOne(createOrderCommand.getCustomerId());
-        Privileges customerPrivileges = getPrivilegesForCustomer(customer);
-
-        if (!customerPrivileges.getCanCreate()) throw new IllegalArgumentException();
-
-        order.setCustomer(customer);
         ProductOrder productOrder = orderRepository.save(order);
         saveReferences(productOrder, productOrderItems);
 
@@ -127,12 +117,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<ProductOrderItem> getOrderItems(Long orderId) {
         return orderItemRepository.findAllByOrderId(orderId);
-    }
-
-
-    private Privileges getPrivilegesForCustomer(Customer customer) {
-        Account customerAccount = customer.getAccount();
-        return customerAccount.getPrivileges();
     }
 
     private void saveReferences(ProductOrder productOrder, List<ProductOrderItem> productOrderItems) {

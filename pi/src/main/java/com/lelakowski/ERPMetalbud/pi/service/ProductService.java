@@ -10,4 +10,6 @@ public interface ProductService {
     Long saveProduct(CreateProductCommand createProductCommand);
 
     List<Product> getProducts();
+
+    Long getProductIdByExternalName(String externalName);
 }

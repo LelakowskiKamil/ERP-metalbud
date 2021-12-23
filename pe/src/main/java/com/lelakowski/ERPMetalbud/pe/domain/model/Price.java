@@ -18,13 +18,17 @@ public class Price {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "value")
+    @Column(name = "externalName", nullable = false, unique = true)
+    private String externalName;
+
+    @Column(name = "value", nullable = false)
     private double value;
 
-    @Column(name = "currency")
+    @Column(name = "currency", nullable = false)
     private String currency;
 
-    public Price(double value, String currency) {
+    public Price(String externalName, double value, String currency) {
+        this.externalName = externalName;
         this.value = value;
         this.currency = currency;
     }

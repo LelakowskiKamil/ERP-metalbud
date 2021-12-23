@@ -2,27 +2,24 @@ package com.lelakowski.ERPMetalbud.pi.web.controller;
 
 import com.google.gson.Gson;
 import com.lelakowski.ERPMetalbud.ProductInventoryApplication;
-import com.lelakowski.ERPMetalbud.common.color.domain.model.Color;
-import com.lelakowski.ERPMetalbud.common.color.domain.repository.ColorRepository;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimension;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimensions;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.repository.DimensionRepository;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.repository.DimensionsRepository;
-import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
-import com.lelakowski.ERPMetalbud.pe.domain.repository.PriceRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.model.*;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.*;
+import com.lelakowski.ERPMetalbud.pi.service.PriceApiClient;
+import com.lelakowski.ERPMetalbud.pi.web.command.CreatePiPriceCommand;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductCommand;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductDetailsCommand;
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,6 +28,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.mockito.ArgumentMatchers.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = ProductInventoryApplication.class)
@@ -44,8 +43,6 @@ class ProductControllerTest {
     @Autowired
     ProductDetailsRepository productDetailsRepository;
     @Autowired
-    PriceRepository priceRepository;
-    @Autowired
     BrandRepository brandRepository;
     @Autowired
     ColorRepository colorRepository;
@@ -58,6 +55,8 @@ class ProductControllerTest {
     @Autowired
     VendorRepository vendorRepository;
 
+    @MockBean
+    PriceApiClient priceApiClient;
     @Autowired
     MockMvc mockMvc;
 
@@ -89,12 +88,10 @@ class ProductControllerTest {
         vendorRepository.save(vendor);
         Brand brand = new Brand("brand");
         brandRepository.save(brand);
-        Price price = new Price(1.5, "PLN");
-        priceRepository.save(price);
-        Product product = new Product("product", productDetails, vendor, brand, price);
+        Product product = new Product("product", productDetails, vendor, brand, 1L);
         productRepository.save(product);
 
-        String expectedContent = "[{\"id\":1,\"caption\":\"product\",\"productDetails\":{\"id\":1,\"color\":{\"id\":1,\"oem\":\"Red\",\"caption\":\"Czerwony\"},\"productSpecification\":{\"id\":1,\"caption\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"}}}},\"vendor\":{\"id\":1,\"caption\":\"vendor\"},\"brand\":{\"id\":1,\"caption\":\"brand\"},\"price\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"product\",\"productDetails\":{\"id\":1,\"color\":{\"id\":1,\"externalName\":\"Czerwony\",\"oem\":\"Red\"},\"productSpecification\":{\"id\":1,\"externalName\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"}}}},\"vendor\":{\"id\":1,\"externalName\":\"vendor\"},\"brand\":{\"id\":1,\"externalName\":\"brand\"},\"priceId\":1}]";
 
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
@@ -126,9 +123,12 @@ class ProductControllerTest {
         CreateProductDetailsCommand createProductDetailsCommand = new CreateProductDetailsCommand(
                 "productDetails", "Red", 1L
         );
-        CreateProductCommand createProductCommand = new CreateProductCommand(
-                "product", createProductDetailsCommand, 1L, 1L, 1.5, "PLN"
-        );
+        CreatePiPriceCommand price = new CreatePiPriceCommand("price1", 1.5, "PLN");
+        CreateProductCommand createProductCommand = new CreateProductCommand("product", createProductDetailsCommand, 1L, 1L, price);
+
+        ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
+        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
 
         Gson gson = new Gson();
         String json = gson.toJson(createProductCommand);
@@ -139,7 +139,7 @@ class ProductControllerTest {
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        String expectedContent = "[{\"id\":1,\"caption\":\"product\",\"productDetails\":{\"id\":1,\"color\":{\"id\":1,\"oem\":\"Red\",\"caption\":\"Czerwony\"},\"productSpecification\":{\"id\":1,\"caption\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"}}}},\"vendor\":{\"id\":1,\"caption\":\"vendor\"},\"brand\":{\"id\":1,\"caption\":\"brand\"},\"price\":{\"id\":1,\"value\":1.5,\"currency\":\"PLN\"}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"product\",\"productDetails\":{\"id\":1,\"color\":{\"id\":1,\"externalName\":\"Czerwony\",\"oem\":\"Red\"},\"productSpecification\":{\"id\":1,\"externalName\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"}}}},\"vendor\":{\"id\":1,\"externalName\":\"vendor\"},\"brand\":{\"id\":1,\"externalName\":\"brand\"},\"priceId\":1}]";
 
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
@@ -149,7 +149,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("- should throw error when data is incorrect correct")
+    @DisplayName("- should throw error when data is incorrect correct - nonexistent vendor")
     void test3() throws Exception {
         Color color = new Color("Red", "Czerwony");
         colorRepository.save(color);
@@ -169,11 +169,14 @@ class ProductControllerTest {
         brandRepository.save(brand);
 
         CreateProductDetailsCommand createProductDetailsCommand = new CreateProductDetailsCommand(
-                "productDetails", "", 1L
+                "productDetails", "Red", 1L
         );
-        CreateProductCommand createProductCommand = new CreateProductCommand(
-                "product", createProductDetailsCommand, 1L, 1L, 1.5, ""
-        );
+        CreatePiPriceCommand price = new CreatePiPriceCommand("price1", 1.5, "PLN");
+        CreateProductCommand createProductCommand = new CreateProductCommand("product", createProductDetailsCommand, 10L, 1L, price);
+
+        ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
+        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
 
         Gson gson = new Gson();
         String json = gson.toJson(createProductCommand);

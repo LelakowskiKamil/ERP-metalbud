@@ -2,13 +2,13 @@ package com.lelakowski.ERPMetalbud.pi.web.controller;
 
 import com.google.gson.Gson;
 import com.lelakowski.ERPMetalbud.ProductInventoryApplication;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimension;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.model.Dimensions;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.repository.DimensionRepository;
-import com.lelakowski.ERPMetalbud.common.dimension.domain.repository.DimensionsRepository;
-import com.lelakowski.ERPMetalbud.common.dimension.web.command.CreateDimensionsCommand;
+import com.lelakowski.ERPMetalbud.pi.domain.model.Dimension;
+import com.lelakowski.ERPMetalbud.pi.domain.model.Dimensions;
 import com.lelakowski.ERPMetalbud.pi.domain.model.ProductSpecification;
+import com.lelakowski.ERPMetalbud.pi.domain.repository.DimensionRepository;
+import com.lelakowski.ERPMetalbud.pi.domain.repository.DimensionsRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductSpecificationRepository;
+import com.lelakowski.ERPMetalbud.pi.web.command.CreateDimensionsCommand;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductSpecification;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,7 +60,7 @@ class ProductSpecificationControllerTest {
         dimensionsRepository.save(dimensions);
         ProductSpecification productSpecification = new ProductSpecification("testProductSpec", dimensions);
 
-        String expectedContent = "[{\"id\":1,\"caption\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"}}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"}}}]";
         productSpecificationRepository.save(productSpecification);
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
@@ -83,7 +83,7 @@ class ProductSpecificationControllerTest {
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        String expectedContent = "[{\"id\":1,\"caption\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"}}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"testProductSpec\",\"dimensions\":{\"id\":1,\"caption\":\"testDimension\",\"height\":{\"id\":1,\"value\":1.5,\"unit\":\"mm\"},\"width\":{\"id\":3,\"value\":1.5,\"unit\":\"mm\"},\"length\":{\"id\":2,\"value\":1.5,\"unit\":\"mm\"}}}]";
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())

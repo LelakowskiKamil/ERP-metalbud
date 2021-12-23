@@ -5,6 +5,7 @@ import com.lelakowski.ERPMetalbud.pim.domain.model.Account;
 import com.lelakowski.ERPMetalbud.pim.domain.model.Privileges;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.AccountRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.PrivilegesRepository;
+import com.lelakowski.ERPMetalbud.pim.notification.NotFoundAccountWithExternalNameException;
 import com.lelakowski.ERPMetalbud.pim.validation.CreateAccountValidator;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateAccountCommand;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +31,7 @@ public class AccountServiceImpl implements AccountService {
         Privileges privileges = privilegesRepository.getOne(createAccountCommand.getPrivilegesId());
 
         Account accountToSave = accountBuilder.from(
+                createAccountCommand.getExternalName(),
                 createAccountCommand.getUsername(),
                 createAccountCommand.getPassword(),
                 createAccountCommand.getEmail(),
@@ -39,8 +42,16 @@ public class AccountServiceImpl implements AccountService {
         return account.getId();
     }
 
+    @Override
     public List<Account> getAccounts() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public Long getAccountIdByExternalName(String externalName) {
+        Optional<Long> accountIdOpt = accountRepository.findAccountIdByCaption(externalName);
+        if (accountIdOpt.isEmpty()) throw new NotFoundAccountWithExternalNameException(externalName);
+        return accountIdOpt.get();
     }
 
 }

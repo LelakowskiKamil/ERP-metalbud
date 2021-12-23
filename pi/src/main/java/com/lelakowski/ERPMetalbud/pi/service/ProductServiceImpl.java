@@ -1,8 +1,5 @@
 package com.lelakowski.ERPMetalbud.pi.service;
 
-import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
-import com.lelakowski.ERPMetalbud.pe.domain.repository.PriceRepository;
-import com.lelakowski.ERPMetalbud.pe.service.PriceService;
 import com.lelakowski.ERPMetalbud.pi.builder.ProductBuilder;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Brand;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Product;
@@ -12,6 +9,7 @@ import com.lelakowski.ERPMetalbud.pi.domain.repository.BrandRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductDetailsRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.VendorRepository;
+import com.lelakowski.ERPMetalbud.pi.notification.NotFoundProductWithExternalNameException;
 import com.lelakowski.ERPMetalbud.pi.validation.CreateProductValidator;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductCommand;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,11 +27,23 @@ public class ProductServiceImpl implements ProductService {
     private final ProductBuilder productBuilder;
     private final ProductDetailsService productDetailsService;
     private final ProductDetailsRepository productDetailsRepository;
-    private final PriceRepository priceRepository;
-    private final PriceService priceService;
+    private final PriceApiClient priceApiClient;
     private final BrandRepository brandRepository;
     private final VendorRepository vendorRepository;
     private final CreateProductValidator createProductValidator;
+
+    private void sendCreatePriceCommand(CreateProductCommand createProductCommand) {
+        priceApiClient.createPrice(
+                createProductCommand.getPrice().getExternalName(),
+                createProductCommand.getPrice().getValue(),
+                createProductCommand.getPrice().getCurrency()
+        );
+    }
+
+    private Long createPrice(CreateProductCommand createProductCommand) {
+        sendCreatePriceCommand(createProductCommand);
+        return priceApiClient.getPriceIdByExternalName(createProductCommand.getPrice().getExternalName());
+    }
 
     @Transactional
     @Override
@@ -42,8 +53,7 @@ public class ProductServiceImpl implements ProductService {
         Long productDetailsId = productDetailsService.saveProductDetails(createProductCommand.getProductDetails());
         ProductDetails productDetails = productDetailsRepository.getOne(productDetailsId);
 
-        Long priceId = priceService.savePrice(createProductCommand.getPriceValue(), createProductCommand.getPriceCurrency());
-        Price price = priceRepository.getOne(priceId);
+        Long priceId = createPrice(createProductCommand);
 
         Brand brand = brandRepository.getOne(createProductCommand.getBrandId());
 
@@ -52,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         Product productToSave = productBuilder.from(
                 createProductCommand.getCaption(),
                 productDetails,
-                price,
+                priceId,
                 vendor,
                 brand
         );
@@ -60,6 +70,13 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.save(productToSave);
 
         return product.getId();
+    }
+
+    @Override
+    public Long getProductIdByExternalName(String externalName) {
+        Optional<Long> productIdOpt = productRepository.findProductIdByExternalName(externalName);
+        if (productIdOpt.isEmpty()) throw new NotFoundProductWithExternalNameException(externalName);
+        return productIdOpt.get();
     }
 
     @Override

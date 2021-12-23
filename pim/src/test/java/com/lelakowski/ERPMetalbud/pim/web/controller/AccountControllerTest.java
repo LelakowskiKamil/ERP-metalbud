@@ -45,9 +45,9 @@ class AccountControllerTest {
     void test1() throws Exception {
         Privileges privileges = new Privileges("Admin", true, true, true, true);
         privilegesRepository.save(privileges);
-        Account account = new Account("admin", "!Admin123", "admin@admin.pl", privileges);
+        Account account = new Account("externalName1", "admin1", "!Admin123", "admin@admin.pl", privileges);
         accountRepository.save(account);
-        String expectedContent = "[{\"id\":1,\"username\":\"admin\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"externalName1\",\"username\":\"admin1\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}}]";
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -57,11 +57,11 @@ class AccountControllerTest {
     @Test
     @DisplayName("- should create account when data is correct")
     void test2() throws Exception {
-        CreateAccountCommand command = new CreateAccountCommand("admin", "!Admin123", "admin@admin.pl", 1L);
+        CreateAccountCommand command = new CreateAccountCommand("externalName2", "admin", "!Admin123", "admin@admin.pl", 1L);
 
         Privileges privileges = new Privileges("Admin", true, true, true, true);
         privilegesRepository.save(privileges);
-        String expectedContent = "[{\"id\":1,\"username\":\"admin\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"externalName2\",\"username\":\"admin\",\"password\":\"!Admin123\",\"email\":\"admin@admin.pl\",\"privileges\":{\"id\":1,\"caption\":\"Admin\",\"canView\":true,\"canCreate\":true,\"canUpdate\":true,\"canRemove\":true}}]";
 
         Gson gson = new Gson();
         String json = gson.toJson(command);
@@ -81,7 +81,7 @@ class AccountControllerTest {
     @Test
     @DisplayName("- should throw error when data is incorrect correct")
     void test3() throws Exception {
-        CreateAccountCommand command = new CreateAccountCommand("admin", "admin", "adminadminpl", 1L);
+        CreateAccountCommand command = new CreateAccountCommand("externalName3","admin", "admin", "adminadminpl", 1L);
         Privileges privileges = new Privileges("Admin", true, true, true, true);
         privilegesRepository.save(privileges);
 

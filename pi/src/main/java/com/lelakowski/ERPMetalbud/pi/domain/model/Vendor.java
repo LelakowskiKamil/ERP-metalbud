@@ -20,9 +20,10 @@ public class Vendor {
     @Column(name = "id")
     private Long id;
 
-    private String caption;
+    @Column(name = "externalName", nullable = false, unique = true)
+    private String externalName;
 
-    public Vendor(String caption) {
-        this.caption = caption;
+    public Vendor(String externalName) {
+        this.externalName = externalName;
     }
 }

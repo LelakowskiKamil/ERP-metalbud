@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomerBuilder {
 
-    public Customer from(String name, String surname, Account account, Address address) {
+    public Customer from(String externalName, String name, String surname, Account account, Address address) {
         return Customer.builder()
+                .externalName(externalName)
                 .name(name)
                 .surname(surname)
                 .account(account)

@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.pi.domain.model;
 
-import com.lelakowski.ERPMetalbud.common.color.domain.model.Color;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,9 +19,11 @@ public class ProductDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
+
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "color_id")
     Color color;
+
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_specification_id")
     ProductSpecification productSpecification;

@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,10 +25,8 @@ public class CreateProductCommand {
     private Long vendorId;
     @NotNull
     private Long brandId;
-    @Min(0)
-    private double priceValue;
-    @NotBlank
-    private String priceCurrency;
+    @NotNull
+    CreatePiPriceCommand price;
 
 
 }

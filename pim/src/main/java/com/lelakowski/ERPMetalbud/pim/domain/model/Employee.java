@@ -1,7 +1,6 @@
 package com.lelakowski.ERPMetalbud.pim.domain.model;
 
 
-import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +19,10 @@ public class Employee {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "externalName", nullable = false, unique = true)
+    private String externalName;
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -28,18 +30,17 @@ public class Employee {
     @ToString.Exclude
     private Profession profession;
 
-    @Column(name = "employment_date")
+    @Column(name = "employment_date", nullable = false)
     private String employmentDate;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "salary_gross_id", referencedColumnName = "id")
-    @ToString.Exclude
-    private Price salaryGross;
+    @Column(name = "salaryId", nullable = false)
+    private Long salaryId;
 
-    public Employee(String email, Profession profession, String employmentDate, Price salaryGross) {
+    public Employee(String externalName, String email, Profession profession, String employmentDate, Long salaryId) {
+        this.externalName = externalName;
         this.email = email;
         this.profession = profession;
         this.employmentDate = employmentDate;
-        this.salaryGross = salaryGross;
+        this.salaryId = salaryId;
     }
 }

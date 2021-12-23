@@ -10,4 +10,7 @@ public interface VendorService {
     Long saveVendor(CreateVendorCommand createVendorCommand);
 
     List<Vendor> getVendors();
+
+    Long getVendorIdByExternalName(String externalName);
+
 }

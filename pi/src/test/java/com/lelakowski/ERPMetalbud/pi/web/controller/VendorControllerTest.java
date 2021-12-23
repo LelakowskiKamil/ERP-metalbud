@@ -48,7 +48,7 @@ class VendorControllerTest {
         List<Vendor> vendors = Arrays.asList(vendor1, vendor2, vendor3);
         vendorRepository.saveAll(vendors);
 
-        String expectedContent = "[{\"id\":1,\"caption\":\"test\"},{\"id\":2,\"caption\":\"test2\"},{\"id\":3,\"caption\":\"test3\"}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"test\"},{\"id\":2,\"externalName\":\"test2\"},{\"id\":3,\"externalName\":\"test3\"}]";
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -69,7 +69,7 @@ class VendorControllerTest {
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        String expectedContent = "[{\"id\":1,\"caption\":\"test\"}]";
+        String expectedContent = "[{\"id\":1,\"externalName\":\"test\"}]";
         mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())

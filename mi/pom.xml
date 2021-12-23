@@ -66,11 +66,10 @@
         </dependency>
         <dependency>
             <groupId>com.lelakowski</groupId>
-            <artifactId>pi</artifactId>
+            <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-
     </dependencies>
     <repositories>
         <repository>

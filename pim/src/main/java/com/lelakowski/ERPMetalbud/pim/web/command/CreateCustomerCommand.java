@@ -14,7 +14,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateCustomerCommand {
-
+    @NotBlank
+    String externalName;
     @NotBlank
     @Size(min = 2, max = 50)
     String name;

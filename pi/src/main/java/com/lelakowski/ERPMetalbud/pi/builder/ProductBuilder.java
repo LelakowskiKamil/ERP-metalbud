@@ -1,6 +1,5 @@
 package com.lelakowski.ERPMetalbud.pi.builder;
 
-import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Brand;
 import com.lelakowski.ERPMetalbud.pi.domain.model.Product;
 import com.lelakowski.ERPMetalbud.pi.domain.model.ProductDetails;
@@ -13,18 +12,18 @@ import org.springframework.stereotype.Component;
 public class ProductBuilder {
 
     public Product from(
-            String caption,
+            String externalName,
             ProductDetails productDetails,
-            Price price,
+            Long priceId,
             Vendor vendor,
             Brand brand
     ) {
         return Product.builder()
                 .productDetails(productDetails)
-                .caption(caption)
+                .externalName(externalName)
                 .brand(brand)
                 .vendor(vendor)
-                .price(price)
+                .priceId(priceId)
                 .build();
     }
 

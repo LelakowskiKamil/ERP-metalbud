@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BrandBuilder {
 
-    public Brand from(String caption) {
+    public Brand from(String externalName) {
         return Brand.builder()
-                .caption(caption)
+                .externalName(externalName)
                 .build();
     }
 

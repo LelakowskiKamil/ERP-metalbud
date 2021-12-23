@@ -7,8 +7,6 @@ import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderItemRepos
 import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderRepository;
 import com.lelakowski.ERPMetalbud.om.validation.CreateOrderItemValidator;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
-import com.lelakowski.ERPMetalbud.pi.domain.model.Product;
-import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,20 +19,19 @@ public class OrderItemServiceImpl implements OrderItemService {
     private final OrderRepository orderRepository;
     private final ProductOrderItemBuilder productOrderItemBuilder;
     private final CreateOrderItemValidator createOrderItemValidator;
-    private final ProductRepository productRepository;
+    private final ProductApiClient productApiClient;
 
     @Transactional
     @Override
     public Long saveOrderItem(CreateOrderItemCommand createOrderItemCommand) {
         createOrderItemValidator.validate(createOrderItemCommand);
 
-        Product product = productRepository.getOne(createOrderItemCommand.getProductId());
         ProductOrder productOrder = orderRepository.getOne(createOrderItemCommand.getOrderId());
 
         ProductOrderItem productOrderItemToSave = productOrderItemBuilder.from(
                 createOrderItemCommand.getQuantity(),
                 productOrder,
-                product
+                createOrderItemCommand.getProductId()
         );
 
         ProductOrderItem orderItem = orderItemRepository.save(productOrderItemToSave);

@@ -13,14 +13,14 @@ public class CreateEmployeeValidator {
 
     private final ProfessionRepository professionRepository;
 
-    public void validate(CreateEmployeeCommand createEmployeeCommand) throws NotFoundProfessionWithIdException {
+    public void validate(CreateEmployeeCommand createEmployeeCommand) {
         if (createEmployeeCommand == null)
             throw new IllegalCommandContentException(CreateEmployeeCommand.class.getSimpleName());
 
         validateProfessionExisting(createEmployeeCommand.getProfessionId());
     }
 
-    private void validateProfessionExisting(Long professionId) throws NotFoundProfessionWithIdException {
+    private void validateProfessionExisting(Long professionId) {
         if (!professionRepository.existsById(professionId)) {
             throw new NotFoundProfessionWithIdException(professionId);
         }

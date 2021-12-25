@@ -26,11 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final PriceApiClient priceApiClient;
 
     private void sendCreatePriceCommand(CreateEmployeeCommand createEmployeeCommand) {
-        priceApiClient.createPrice(
-                createEmployeeCommand.getPrice().getExternalName(),
-                createEmployeeCommand.getPrice().getValue(),
-                createEmployeeCommand.getPrice().getCurrency()
-        );
+        priceApiClient.createPrice(createEmployeeCommand.getPrice());
     }
 
     private Long createPrice(CreateEmployeeCommand createEmployeeCommand) {

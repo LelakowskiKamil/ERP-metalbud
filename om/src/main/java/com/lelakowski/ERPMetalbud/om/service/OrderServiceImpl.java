@@ -30,7 +30,6 @@ public class OrderServiceImpl implements OrderService {
     private final CreateOrderValidator createOrderValidator;
     private final OrderItemService orderItemService;
     private final OrderItemRepository orderItemRepository;
-    private final CustomerApiClient customerApiClient;
 
     @Transactional
     @Override

@@ -11,6 +11,11 @@ spring:
        enabled: true
        settings:
         web-allow-others: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
 
 server.port: 8084
 

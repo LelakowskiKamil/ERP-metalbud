@@ -5,18 +5,15 @@ import com.lelakowski.ERPMetalbud.OrderManagementApplication;
 import com.lelakowski.ERPMetalbud.om.domain.model.OrderStatus;
 import com.lelakowski.ERPMetalbud.om.domain.model.ProductOrder;
 import com.lelakowski.ERPMetalbud.om.domain.repository.repository.OrderRepository;
-import com.lelakowski.ERPMetalbud.om.service.ProductApiClient;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderCommand;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.annotation.DirtiesContext;
@@ -28,8 +25,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyString;
-
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = OrderManagementApplication.class)
 @SpringBootTest
@@ -39,9 +34,6 @@ class OrderFlowSuite {
 
     @Autowired
     OrderRepository orderRepository;
-
-    @MockBean
-    ProductApiClient productApiClient;
 
     @Autowired
     MockMvc mockMvc;
@@ -57,7 +49,6 @@ class OrderFlowSuite {
     @Test
     @DisplayName("- create order with some order items and next add another order item to order")
     void test1() throws Exception {
-        Mockito.when(productApiClient.getProductIdByCaption(anyString())).thenReturn(1L);
         List<CreateOrderItemCommand> orderItems = List.of(new CreateOrderItemCommand(1, 1L));
 
         CreateOrderCommand createOrderCommand = new CreateOrderCommand(1L, orderItems);
@@ -89,7 +80,6 @@ class OrderFlowSuite {
     @Test
     @DisplayName("- create order with some order items and confirm order")
     void test2() throws Exception {
-        Mockito.when(productApiClient.getProductIdByCaption(anyString())).thenReturn(1L);
 
         List<CreateOrderItemCommand> orderItems = List.of(new CreateOrderItemCommand(1, 1L));
 
@@ -120,7 +110,6 @@ class OrderFlowSuite {
     @Test
     @DisplayName("- correct order flow: create order with some order items, confirm, send and close order")
     void test3() throws Exception {
-        Mockito.when(productApiClient.getProductIdByCaption(anyString())).thenReturn(1L);
 
         List<CreateOrderItemCommand> orderItems = List.of(new CreateOrderItemCommand(1, 1L));
 
@@ -175,7 +164,6 @@ class OrderFlowSuite {
     @Test
     @DisplayName("- incorrect order flow: cannot send unconfirmed order")
     void test4() throws Exception {
-        Mockito.when(productApiClient.getProductIdByCaption(anyString())).thenReturn(1L);
 
         List<CreateOrderItemCommand> orderItems = List.of(new CreateOrderItemCommand(1, 1L));
 
@@ -201,7 +189,6 @@ class OrderFlowSuite {
     @Test
     @DisplayName("- incorrect order flow: cannot revert not shipped order")
     void test5() throws Exception {
-        Mockito.when(productApiClient.getProductIdByCaption(anyString())).thenReturn(1L);
 
         List<CreateOrderItemCommand> orderItems = List.of(new CreateOrderItemCommand(1, 1L));
 

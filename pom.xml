@@ -11,6 +11,7 @@
         <module>pi</module>
         <module>pim</module>
         <module>eureka</module>
+        <module>hystrix</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

@@ -31,7 +31,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.GregorianCalendar;
 
 import static com.lelakowski.ERPMetalbud.common.utils.DateTimeHelper.fromGregorianCalendar;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = ProductInformationManagementApplication.class)
@@ -85,7 +85,7 @@ class EmployeeControllerTest {
         String json = gson.toJson(command);
 
         ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
-        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.createPrice(any(CreatePimPriceCommand.class))).thenReturn(responseEntity);
         Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
 
 
@@ -115,7 +115,7 @@ class EmployeeControllerTest {
         String json = gson.toJson(command);
 
         ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
-        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.createPrice(any(CreatePimPriceCommand.class))).thenReturn(responseEntity);
         Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
 
         mockMvc.perform(MockMvcRequestBuilders.post(endpoint)

@@ -20,8 +20,7 @@ public class PriceApiClientImpl implements PriceApiClient {
     }
 
     @Override
-    public ResponseEntity<ResponseEntity> createPrice(String externalName, double priceValue, String priceCurrency) {
-        CreatePimPriceCommand command = new CreatePimPriceCommand(externalName, priceValue, priceCurrency);
+    public ResponseEntity<ResponseEntity> createPrice(CreatePimPriceCommand command) {
         return rt.postForEntity("http://localhost:8084/prices", command, ResponseEntity.class);
     }
 

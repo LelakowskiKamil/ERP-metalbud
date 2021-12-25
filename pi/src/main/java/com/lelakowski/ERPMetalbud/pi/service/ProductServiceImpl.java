@@ -33,11 +33,7 @@ public class ProductServiceImpl implements ProductService {
     private final CreateProductValidator createProductValidator;
 
     private void sendCreatePriceCommand(CreateProductCommand createProductCommand) {
-        priceApiClient.createPrice(
-                createProductCommand.getPrice().getExternalName(),
-                createProductCommand.getPrice().getValue(),
-                createProductCommand.getPrice().getCurrency()
-        );
+        priceApiClient.createPrice(createProductCommand.getPrice());
     }
 
     private Long createPrice(CreateProductCommand createProductCommand) {

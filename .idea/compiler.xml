@@ -15,6 +15,12 @@
         <module name="mi" />
         <module name="om" />
       </profile>
+      <profile name="Annotation profile for ERP-Metalbud" enabled="true">
+        <sourceOutputDir name="../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hystrix" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="11" />
@@ -23,6 +29,7 @@
       <module name="ERP-Metalbud" target="11" />
       <module name="eureka" target="11" />
       <module name="fa" target="11" />
+      <module name="hystrix" target="11" />
       <module name="mi" target="11" />
       <module name="om" target="11" />
       <module name="ou" target="11" />
@@ -44,6 +51,7 @@
       <module name="common" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="fa" options="-parameters" />
+      <module name="hystrix" options="-parameters" />
       <module name="mi" options="-parameters" />
       <module name="om" options="-parameters" />
       <module name="pe" options="-parameters" />

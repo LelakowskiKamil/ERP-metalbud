@@ -4,6 +4,7 @@ import com.lelakowski.ERPMetalbud.pe.domain.model.Price;
 import com.lelakowski.ERPMetalbud.pe.service.PriceService;
 import com.lelakowski.ERPMetalbud.pe.web.command.CreatePriceCommand;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class PriceController {
 
     private final PriceService priceService;
@@ -34,9 +36,11 @@ public class PriceController {
         return new ResponseEntity<>(priceService.getPrice(id), HttpStatus.OK);
     }
 
+
     @PostMapping(path = "/prices", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Price> createPrice(@RequestBody @Valid CreatePriceCommand createPriceCommand) {
         priceService.savePriceFromCommand(createPriceCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 }

@@ -29,7 +29,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = ProductInventoryApplication.class)
@@ -127,7 +127,7 @@ class ProductControllerTest {
         CreateProductCommand createProductCommand = new CreateProductCommand("product", createProductDetailsCommand, 1L, 1L, price);
 
         ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
-        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.createPrice(any(CreatePiPriceCommand.class))).thenReturn(responseEntity);
         Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
 
         Gson gson = new Gson();
@@ -175,7 +175,7 @@ class ProductControllerTest {
         CreateProductCommand createProductCommand = new CreateProductCommand("product", createProductDetailsCommand, 10L, 1L, price);
 
         ResponseEntity<ResponseEntity> responseEntity = Mockito.mock(ResponseEntity.class);
-        Mockito.when(priceApiClient.createPrice(anyString(), anyDouble(), anyString())).thenReturn(responseEntity);
+        Mockito.when(priceApiClient.createPrice(any(CreatePiPriceCommand.class))).thenReturn(responseEntity);
         Mockito.when(priceApiClient.getPriceIdByExternalName(any())).thenReturn(1L);
 
         Gson gson = new Gson();

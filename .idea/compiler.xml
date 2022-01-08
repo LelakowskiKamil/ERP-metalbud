@@ -12,6 +12,7 @@
         <module name="pe" />
         <module name="eureka" />
         <module name="pi" />
+        <module name="zuul" />
         <module name="mi" />
         <module name="om" />
       </profile>
@@ -43,6 +44,7 @@
       <module name="pim-api" target="17" />
       <module name="pim-client" target="17" />
       <module name="pim-core" target="17" />
+      <module name="zuul" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -64,6 +66,7 @@
       <module name="pim-api" options="-parameters" />
       <module name="pim-client" options="-parameters" />
       <module name="pim-core" options="-parameters" />
+      <module name="zuul" options="-parameters" />
     </option>
   </component>
 </project>

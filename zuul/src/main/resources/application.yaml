@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: zuul
+zuul:
+  routes:
+    mi:
+      path: /v1/mi/**
+      serviceId: mi
+    om:
+      path: /v1/om/**
+      serviceId: om
+    pe:
+      path: /v1/pe/**
+      serviceId: pe
+    pi:
+      path: /v1/pi/**
+      serviceId: pi
+    pim:
+      path: /v1/pim/**
+      serviceId: pim
+  prefix: /api
+
+server:
+  port: 8087

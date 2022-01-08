@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/pe/pe.iml" filepath="$PROJECT_DIR$/pe/pe.iml" />
       <module fileurl="file://$PROJECT_DIR$/pi/pi.iml" filepath="$PROJECT_DIR$/pi/pi.iml" />
       <module fileurl="file://$PROJECT_DIR$/pim/pim.iml" filepath="$PROJECT_DIR$/pim/pim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zuul/zuul.iml" filepath="$PROJECT_DIR$/zuul/zuul.iml" />
     </modules>
   </component>
 </project>

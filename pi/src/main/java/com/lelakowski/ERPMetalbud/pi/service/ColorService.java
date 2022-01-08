@@ -13,7 +13,7 @@ public interface ColorService {
 
     Long getColorIdByExternalName(String externalName);
 
-    Long getColorIdByOem(String externalName);
+    Long getColorIdByOem(String oem);
 
 
 }

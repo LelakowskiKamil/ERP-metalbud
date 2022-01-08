@@ -33,14 +33,14 @@ public class ColorServiceImpl implements ColorService {
     @Override
     public Long getColorIdByExternalName(String externalName) {
         Optional<Long> colorIdOpt = colorRepository.findColorByExternalName(externalName);
-        if (colorIdOpt.isEmpty()) throw new NotFoundColorWithOEMException(externalName);
+        if (colorIdOpt.isEmpty()) throw new NotFoundColorWithExternalNameException(externalName);
         return colorIdOpt.get();
     }
 
     @Override
-    public Long getColorIdByOem(String externalName) {
-        Optional<Long> colorIdOpt = colorRepository.findColorByExternalName(externalName);
-        if (colorIdOpt.isEmpty()) throw new NotFoundColorWithExternalNameException(externalName);
+    public Long getColorIdByOem(String oem) {
+        Optional<Long> colorIdOpt = colorRepository.findColorByOEM(oem);
+        if (colorIdOpt.isEmpty()) throw new NotFoundColorWithOEMException(oem);
         return colorIdOpt.get();
     }
 }

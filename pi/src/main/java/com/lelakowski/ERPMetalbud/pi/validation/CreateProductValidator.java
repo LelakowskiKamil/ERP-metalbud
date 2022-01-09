@@ -1,8 +1,8 @@
 package com.lelakowski.ERPMetalbud.pi.validation;
 
-import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.BrandRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.VendorRepository;
+import com.lelakowski.ERPMetalbud.pi.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pi.notification.NotFoundBrandWithIdException;
 import com.lelakowski.ERPMetalbud.pi.notification.NotFoundVendorWithIdException;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductCommand;

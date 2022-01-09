@@ -1,7 +1,7 @@
 package com.lelakowski.ERPMetalbud.mi.validation;
 
-import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.mi.domain.repository.MaterialRepository;
+import com.lelakowski.ERPMetalbud.mi.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.mi.notification.NotFoundMaterialWithIdException;
 import com.lelakowski.ERPMetalbud.mi.web.command.CreateBillOfMaterialItemCommand;
 import lombok.RequiredArgsConstructor;

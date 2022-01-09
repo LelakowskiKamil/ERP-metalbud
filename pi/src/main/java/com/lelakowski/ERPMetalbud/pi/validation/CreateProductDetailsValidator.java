@@ -1,8 +1,8 @@
 package com.lelakowski.ERPMetalbud.pi.validation;
 
-import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ColorRepository;
 import com.lelakowski.ERPMetalbud.pi.domain.repository.ProductSpecificationRepository;
+import com.lelakowski.ERPMetalbud.pi.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pi.notification.NotFoundColorWithOEMException;
 import com.lelakowski.ERPMetalbud.pi.notification.NotFoundProductSpecificationWithIdException;
 import com.lelakowski.ERPMetalbud.pi.web.command.CreateProductDetailsCommand;

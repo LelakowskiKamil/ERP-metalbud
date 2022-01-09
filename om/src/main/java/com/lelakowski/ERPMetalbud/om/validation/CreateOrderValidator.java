@@ -1,6 +1,6 @@
 package com.lelakowski.ERPMetalbud.om.validation;
 
-import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
+import com.lelakowski.ERPMetalbud.om.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderCommand;
 import com.lelakowski.ERPMetalbud.om.web.command.CreateOrderItemCommand;
 import lombok.RequiredArgsConstructor;

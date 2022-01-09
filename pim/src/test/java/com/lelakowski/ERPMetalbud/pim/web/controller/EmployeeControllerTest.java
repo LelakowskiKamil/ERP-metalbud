@@ -28,9 +28,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static com.lelakowski.ERPMetalbud.common.utils.DateTimeHelper.fromGregorianCalendar;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
@@ -124,6 +125,17 @@ class EmployeeControllerTest {
                         .with(SecurityMockMvcRequestPostProcessors.anonymous())
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    private SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private String fromGregorianCalendar(GregorianCalendar date) {
+        return sdfDate.format(date.getTime());
+    }
+
+    private String currentDate() {
+        Date now = new Date();
+        return sdfDate.format(now);
     }
 
 }

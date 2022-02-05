@@ -1,8 +1,8 @@
 package com.lelakowski.ERPMetalbud.pim.validation;
 
-import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.AccountRepository;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.AddressRepository;
+import com.lelakowski.ERPMetalbud.pim.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pim.notification.NotFoundAccountWithIdException;
 import com.lelakowski.ERPMetalbud.pim.notification.NotFoundAddressWithIdException;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateCustomerCommand;

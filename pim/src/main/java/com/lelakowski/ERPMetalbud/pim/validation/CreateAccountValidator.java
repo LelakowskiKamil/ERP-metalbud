@@ -1,7 +1,7 @@
 package com.lelakowski.ERPMetalbud.pim.validation;
 
-import com.lelakowski.ERPMetalbud.common.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pim.domain.repository.PrivilegesRepository;
+import com.lelakowski.ERPMetalbud.pim.notification.IllegalCommandContentException;
 import com.lelakowski.ERPMetalbud.pim.notification.NotFoundPrivilegesWithIdException;
 import com.lelakowski.ERPMetalbud.pim.web.command.CreateAccountCommand;
 import lombok.RequiredArgsConstructor;

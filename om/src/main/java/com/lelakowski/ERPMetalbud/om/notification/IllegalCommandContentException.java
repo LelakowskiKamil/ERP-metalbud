@@ -1,4 +1,4 @@
-package com.lelakowski.ERPMetalbud.common.notification;
+package com.lelakowski.ERPMetalbud.om.notification;
 
 public class IllegalCommandContentException extends IllegalArgumentException {
     public IllegalCommandContentException(String message) {

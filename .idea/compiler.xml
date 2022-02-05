@@ -7,7 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="common" />
+        <module name="hystrix" />
         <module name="pim" />
         <module name="pe" />
         <module name="eureka" />
@@ -15,12 +15,6 @@
         <module name="zuul" />
         <module name="mi" />
         <module name="om" />
-      </profile>
-      <profile name="Annotation profile for ERP-Metalbud" enabled="true">
-        <sourceOutputDir name="../target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="hystrix" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

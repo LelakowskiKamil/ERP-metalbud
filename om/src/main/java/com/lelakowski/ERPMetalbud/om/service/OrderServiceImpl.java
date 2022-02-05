@@ -15,10 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.lelakowski.ERPMetalbud.common.utils.DateTimeHelper.currentDate;
 
 @Service
 @Slf4j
@@ -121,4 +123,16 @@ public class OrderServiceImpl implements OrderService {
     private void saveReferences(ProductOrder productOrder, List<ProductOrderItem> productOrderItems) {
         productOrderItems.forEach(orderItem -> orderItem.setProductOrder(productOrder));
     }
+
+    private SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private String fromGregorianCalendar(GregorianCalendar date) {
+        return sdfDate.format(date.getTime());
+    }
+
+    private String currentDate() {
+        Date now = new Date();
+        return sdfDate.format(now);
+    }
+
 }

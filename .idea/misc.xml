@@ -10,7 +10,9 @@
         <option value="$PROJECT_DIR$/MI/pom.xml" />
         <option value="$PROJECT_DIR$/FA/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/hystrix/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

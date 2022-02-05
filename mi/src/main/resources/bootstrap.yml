@@ -1,9 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
-spring:
-  cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
+      defaultZone: http://192.168.1.112:8761/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 192.168.1.112

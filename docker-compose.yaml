@@ -1,44 +1,45 @@
+version: "3"
 services:
   eureka:
-    build: ../ERP-metalbud-v2/eureka
+    build: ../ERP-metalbud/eureka
     ports:
       - "8761:8761"
   hystrix:
-    build: ../ERP-metalbud-v2/hystrix
+    build: ../ERP-metalbud/hystrix
     ports:
       - "7979:7979"
   mi:
-    build: ../ERP-metalbud-v2/mi
+    build: ../ERP-metalbud/mi
     ports:
       - "8082:8082"
     depends_on:
       - eureka
   om:
-    build: ../ERP-metalbud-v2/om
+    build: ../ERP-metalbud/om
     ports:
       - "8083:8083"
     depends_on:
       - eureka
   pe:
-    build: ../ERP-metalbud-v2/pe
+    build: ../ERP-metalbud/pe
     ports:
       - "8084:8084"
     depends_on:
       - eureka
   pi:
-    build: ../ERP-metalbud-v2/pi
+    build: ../ERP-metalbud/pi
     ports:
       - "8085:8085"
     depends_on:
       - eureka
   pim:
-    build: ../ERP-metalbud-v2/pim
+    build: ../ERP-metalbud/pim
     ports:
       - "8086:8086"
     depends_on:
       - eureka
   zuul:
-    build: ../ERP-metalbud-v2/zuul
+    build: ../ERP-metalbud/zuul
     ports:
       - "8087:8087"
     depends_on:
